@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/history"
+        android:title="@string/title_history" />
+
+    <item
+        android:id="@+id/navigation_news"
+        android:icon="@drawable/news"
+        android:title="@string/title_news" />
+
+    <item
+        android:id="@+id/navigation_pharmacy"
+        android:icon="@drawable/medicine"
+        android:title="@string/title_pharmacy" />
+
+    <item
+        android:id="@+id/navigation_more"
+        android:icon="@drawable/menu"
+        android:title="@string/title_more" />
+
+</menu>

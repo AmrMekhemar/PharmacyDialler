@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">PharmacyDialler</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_news">News</string>
+    <string name="title_history">History</string>
+    <string name="title_pharmacy">Pharmacy</string>
+    <string name="title_more">more</string>
+    <string name="health_news">Health News</string>
+    <string name="what_s_new_today">"What's New Today!"</string>
+    <string name="news_api_key">4b9d06a498454da48992eec2590e60d2</string>
+    <string name="lorem_ipsum_text">lorem ipsum text, loremt ijhg ghlkghglkhjp kj hjkholjkh jnhkljhkj ;dhgkj</string>
+</resources>
