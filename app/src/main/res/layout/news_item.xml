@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/article_card_height"
+    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/margin_small"
     android:layout_marginTop="@dimen/margin_small"
     android:layout_marginEnd="@dimen/margin_small"
     app:cardCornerRadius="@dimen/margin_small">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -16,7 +17,9 @@
             android:id="@+id/news_item_imageView"
             android:layout_width="0dp"
             android:layout_height="200dp"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />

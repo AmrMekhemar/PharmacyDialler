@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_more"
-        android:name="com.team.myapplication.ui.user.more.MoreFragment"
+        android:name="com.team.myapplication.ui.MoreInfoFragment"
         android:label="@string/title_more"
         tools:layout="@layout/fragment_more" />
 </navigation>
