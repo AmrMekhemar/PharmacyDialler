@@ -58,6 +58,7 @@ dependencies {
 
     // Room components
     implementation "android.arch.persistence.room:runtime:1.1.1"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "android.arch.persistence.room:compiler:1.1.1"
 
     //LiveData and ViewModel

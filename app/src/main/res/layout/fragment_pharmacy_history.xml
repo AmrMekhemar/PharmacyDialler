@@ -4,27 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.history.HistoryFragment">
+    tools:context=".ui.pharmacy.PharmacyHistoryFragment">
 
     <TextView
-        android:id="@+id/active_orders_tv"
+        android:id="@+id/PharmacyOrdersHistory_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/comfortaa"
-        android:text="Orders History"
+        android:text="@string/orders_history"
         android:textAlignment="center"
         android:textSize="@dimen/medium_font_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pharmacyOrders_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/active_orders_tv"
+        app:layout_constraintTop_toBottomOf="@+id/PharmacyOrdersHistory_tv"
         tools:listitem="@layout/orders_item" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
