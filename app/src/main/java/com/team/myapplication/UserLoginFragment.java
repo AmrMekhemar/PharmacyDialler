@@ -3,7 +3,6 @@ package com.team.myapplication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +14,10 @@ import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
+ * Use the {@link UserLoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment implements View.OnClickListener {
+public class UserLoginFragment extends Fragment implements View.OnClickListener {
 
     ImageView logoIV;
     TextView welcomeTV;
@@ -34,7 +33,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
-    public LoginFragment() {
+    public UserLoginFragment() {
         // Required empty public constructor
     }
 
@@ -47,8 +46,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
      * @return A new instance of fragment startFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    public static UserLoginFragment newInstance(String param1, String param2) {
+        UserLoginFragment fragment = new UserLoginFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,14 +68,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root= inflater.inflate(R.layout.fragment_login, container, false);
+        View root= inflater.inflate(R.layout.fragment_login_user, container, false);
         logoIV=root.findViewById(R.id.logoIV);
         welcomeTV=root.findViewById(R.id.signTV);
-        emailET=root.findViewById(R.id.emailET);
-        passwordET=root.findViewById(R.id.passwordET);
-        signInBTN =root.findViewById(R.id.signInBTN);
-        PharmacyRegisterBTN =root.findViewById(R.id.PharmacyRegisterBTN);
-        UserRegisterBTN =root.findViewById(R.id.UserRegisterBTN);
+        emailET=root.findViewById(R.id.email_ET);
+        passwordET=root.findViewById(R.id.password_ET);
+        signInBTN =root.findViewById(R.id.signIn_btn);
+        PharmacyRegisterBTN =root.findViewById(R.id.PharmacyRegister_btn);
+        UserRegisterBTN =root.findViewById(R.id.UserRegister_btn);
         signInBTN.setOnClickListener(this);
         PharmacyRegisterBTN.setOnClickListener(this);
         UserRegisterBTN.setOnClickListener(this);
@@ -86,21 +85,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-
-            case R.id.signInBTN:
-
-
-
+            case R.id.signIn_btn:
                 break;
-            case R.id.PharmacyRegisterBTN:
-                FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id., new PharmacyRegisterFragment());
-                ft.commit();
+            case R.id.PharmacyRegister_btn:
                 break;
-            case R.id.UserRegisterBTN:
-                FragmentTransaction ft1=getActivity().getSupportFragmentManager().beginTransaction();
-                ft1.replace(R.id., new UserRegisterFragment());
-                ft1.commit();
+            case R.id.UserRegister_btn:
                 break;
         }
 

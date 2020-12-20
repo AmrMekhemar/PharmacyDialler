@@ -139,7 +139,7 @@
         android:textColor="#6C6B6E"/>
 
     <Button
-        android:id="@+id/UserRegisterBTN"
+        android:id="@+id/UserRegister_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/confirm_User_passwordET"

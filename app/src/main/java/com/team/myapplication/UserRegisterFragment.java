@@ -84,7 +84,7 @@ public class UserRegisterFragment extends Fragment implements View.OnClickListen
         confirm_User_passwordET=root.findViewById(R.id.confirm_User_passwordET);
         userPlaceHolder=root.findViewById(R.id.userPlaceHolder);
         UserLocationLinear=root.findViewById(R.id.UserLocationLinear);
-        UserRegisterBTN=root.findViewById(R.id.UserRegisterBTN);
+        UserRegisterBTN=root.findViewById(R.id.UserRegister_btn);
 
         UserRegisterBTN.setOnClickListener(this);
         userPlaceHolder.setOnClickListener(this);
@@ -96,7 +96,7 @@ public class UserRegisterFragment extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
 
-            case R.id.UserRegisterBTN:
+            case R.id.UserRegister_btn:
 
 
                 break;
