@@ -1,4 +1,4 @@
-package com.team.myapplication;
+package com.team.myapplication.ui.login;
 
 import android.os.Bundle;
 
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.team.myapplication.R;
 
 /**
  * A simple {@link Fragment} subclass.

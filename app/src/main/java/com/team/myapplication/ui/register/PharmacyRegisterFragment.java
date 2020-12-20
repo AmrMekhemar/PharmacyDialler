@@ -1,4 +1,4 @@
-package com.team.myapplication;
+package com.team.myapplication.ui.register;
 
 import android.os.Bundle;
 
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.team.myapplication.R;
 
 /**
  * A simple {@link Fragment} subclass.

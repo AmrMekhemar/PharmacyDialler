@@ -1,4 +1,4 @@
-package com.team.myapplication.ui.user.history
+package com.team.myapplication.ui.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.team.myapplication.ui.user.history
+package com.team.myapplication.ui.user
 
 import android.os.Bundle
 import android.view.LayoutInflater

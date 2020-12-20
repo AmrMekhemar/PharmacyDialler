@@ -1,4 +1,4 @@
-package com.team.myapplication.ui.user.news
+package com.team.myapplication.ui.news
 
 import androidx.lifecycle.MutableLiveData
 import com.team.myapplication.model.news.Article

@@ -1,4 +1,4 @@
-package com.team.myapplication.ui.user.news
+package com.team.myapplication.ui.news
 
 
 import android.view.LayoutInflater

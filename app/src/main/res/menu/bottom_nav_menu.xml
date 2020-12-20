@@ -7,6 +7,10 @@
         android:title="@string/title_history" />
 
     <item
+        android:id="@+id/navigation_current"
+        android:icon="@drawable/current"
+        android:title="@string/current" />
+    <item
         android:id="@+id/navigation_news"
         android:icon="@drawable/news"
         android:title="@string/title_news" />

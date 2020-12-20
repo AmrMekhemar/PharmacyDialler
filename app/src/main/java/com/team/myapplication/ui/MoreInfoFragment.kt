@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.myapplication.R
 import com.team.myapplication.model.news.MoreInfoItem
+import com.team.myapplication.ui.user.MoreInfoAdapter
 import kotlinx.android.synthetic.main.fragment_more.*
 
 
@@ -39,6 +40,7 @@ class MoreInfoFragment : Fragment() {
             layoutManager.orientation
         )
         moreInfo_rv.addItemDecoration(dividerItemDecoration)
-        moreInfo_rv.adapter = MoreInfoAdapter(infoItems){}
+        moreInfo_rv.adapter =
+            MoreInfoAdapter(infoItems) {}
     }
 }

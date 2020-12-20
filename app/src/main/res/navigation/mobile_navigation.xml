@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.team.myapplication.ui.user.history.HistoryFragment"
+        android:name="com.team.myapplication.ui.user.HistoryFragment"
         android:label="@string/title_history"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_news"
-        android:name="com.team.myapplication.ui.user.news.NewsFragment"
+        android:name="com.team.myapplication.ui.news.NewsFragment"
         android:label="@string/title_news"
         tools:layout="@layout/fragment_news" />
 
@@ -22,4 +22,12 @@
         android:name="com.team.myapplication.ui.MoreInfoFragment"
         android:label="@string/title_more"
         tools:layout="@layout/fragment_more" />
+
+    <fragment
+        android:id="@+id/navigation_current"
+        android:name="com.team.myapplication.ui.pharmacy.ActiveOrdersFragment"
+        android:label="@string/current_orders"
+        tools:layout="@layout/fragment_active_orders" />
+
+
 </navigation>
