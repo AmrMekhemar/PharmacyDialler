@@ -26,9 +26,8 @@ class PharmacyLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         signIn_btn.setOnClickListener {
-            val navOptions = NavOptions.Builder().setPopUpTo(R.id.userLoginFragment, true).build();
             findNavController().navigate(
-                PharmacyLoginFragmentDirections.actionPharmacyLoginFragmentToMobileNavigation(),navOptions
+                PharmacyLoginFragmentDirections.actionPharmacyLoginFragmentToMobileNavigation()
             )
             nav_view.visibility = View.VISIBLE
         }

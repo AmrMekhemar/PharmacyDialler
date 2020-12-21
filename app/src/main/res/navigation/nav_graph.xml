@@ -11,7 +11,7 @@
         android:label="fragment_pharmacy_login"
         tools:layout="@layout/fragment_pharmacy_login" >
         <action
-            android:id="@+id/action_pharmacyLoginFragment_to_userLoginFragment3"
+            android:id="@+id/action_pharmacyLoginFragment_to_userLoginFragment"
             app:destination="@id/userLoginFragment" />
         <action
             android:id="@+id/action_pharmacyLoginFragment_to_pharmacyRegisterFragment"
@@ -39,12 +39,12 @@
             android:id="@+id/action_userLoginFragment_to_pharmacyRegisterFragment"
             app:destination="@id/pharmacyRegisterFragment" />
         <action
-            android:id="@+id/action_userLoginFragment_to_pharmacyLoginFragment2"
+            android:id="@+id/action_userLoginFragment_to_pharmacyLoginFragment"
             app:destination="@id/pharmacyLoginFragment" />
         <action
             android:id="@+id/action_userLoginFragment_to_mobile_navigation"
             app:destination="@id/mobile_navigation"
-            app:popUpTo="@id/mobile_navigation"
+            app:popUpTo="@id/userLoginFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
