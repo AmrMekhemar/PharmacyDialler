@@ -15,4 +15,5 @@
     <string name="orders_history">Orders History</string>
     <string name="current">Current</string>
     <string name="current_orders">Current Orders</string>
+    <string name="check_internet_connection">Check your internet connection</string>
 </resources>

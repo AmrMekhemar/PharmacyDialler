@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.team.myapplication.ui.user.HistoryFragment"
+        android:name="com.team.myapplication.ordersHistory.OrdersHistoryFragment"
         android:label="@string/title_history"
         tools:layout="@layout/fragment_history" />
 
     <fragment
         android:id="@+id/navigation_news"
-        android:name="com.team.myapplication.ui.news.NewsFragment"
+        android:name="com.team.myapplication.news.NewsFragment"
         android:label="@string/title_news"
         tools:layout="@layout/fragment_news" />
 
     <fragment
         android:id="@+id/navigation_more"
-        android:name="com.team.myapplication.ui.MoreInfoFragment"
+        android:name="com.team.myapplication.settings.MoreInfoFragment"
         android:label="@string/title_more"
         tools:layout="@layout/fragment_more" />
 
     <fragment
         android:id="@+id/navigation_current"
-        android:name="com.team.myapplication.ui.pharmacy.ActiveOrdersFragment"
+        android:name="com.team.myapplication.activeOrders.ActiveOrdersFragment"
         android:label="@string/current_orders"
         tools:layout="@layout/fragment_active_orders" />
 
