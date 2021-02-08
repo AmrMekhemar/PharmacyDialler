@@ -10,7 +10,7 @@ import retrofit2.http.Query
 
 interface RemoteApiService {
     @POST("customerSignin")
-    suspend fun logIn(@Body loginObject: LoginObject): Any
+    suspend fun logIn(@Body loginObject: LoginObject): LoginReturnBody
 
     @POST("customerSignup")
     suspend fun register(@Body registerObject: RegisterObject): Any

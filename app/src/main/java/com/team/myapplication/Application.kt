@@ -10,7 +10,7 @@ import java.util.logging.Level
 
 class Application : Application() {
     companion object {
-        val BASE_URL = "http://192.168.1.4:3000/"
+        val BASE_URL = "http://192.168.1.2:3000/"
         val DATABASE_NAME = "article_database"
     }
 

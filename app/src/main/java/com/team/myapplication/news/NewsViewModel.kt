@@ -7,7 +7,7 @@ import com.team.myapplication.news.model.news.Article
 
 class NewsViewModel : ViewModel() {
     val repoImp = NewsRepoImp()
-    var ArticleList: MutableLiveData<List<Article>>? = null
+    var articleList: MutableLiveData<List<Article>>? = null
     fun loadArticles(): MutableLiveData<List<Article>>? = repoImp.loadNews()
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

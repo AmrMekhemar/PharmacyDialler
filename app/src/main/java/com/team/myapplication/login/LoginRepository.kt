@@ -1,10 +1,11 @@
 package com.team.myapplication.login
 
-import retrofit2.http.Body
+import com.team.myapplication.LoginObject
+import com.team.myapplication.LoginReturnBody
 
 
 interface LoginRepository {
-    suspend fun login(username: String, password: String, callback: Callback):Any
+    suspend fun login(loginObject: LoginObject, callback: Callback): LoginReturnBody
 }
 
 interface Callback {
