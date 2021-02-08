@@ -2,18 +2,17 @@ package com.team.myapplication
 
 import com.team.myapplication.register.model.Coordinates
 import com.team.myapplication.register.model.RegisterObject
-import retrofit2.Response
+import com.team.myapplication.register.model.RegisterReturnBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface RemoteApiService {
     @POST("customerSignin")
     suspend fun logIn(@Body loginObject: LoginObject): LoginReturnBody
 
     @POST("customerSignup")
-    suspend fun register(@Body registerObject: RegisterObject): Any
+    suspend fun register(@Body registerObject: RegisterObject): RegisterReturnBody
 
     @POST("rate")
     suspend fun sendRate(@Body rateObject: RateRequest): Any
