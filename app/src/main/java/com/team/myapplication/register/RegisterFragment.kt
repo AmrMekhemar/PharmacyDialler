@@ -41,8 +41,10 @@ class RegisterFragment : Fragment() {
                     passwordET.text.toString(),
                     confirmPasswordET.text.toString(),
                     phoneNumberET.text.toString(),
-                    addressET.text.toString()
-                    , LocationAsCoordinates(coordinates = Coordinates(154544, 415584))
+                    addressET.text.toString(),
+                    LocationAsCoordinates(coordinates = Coordinates(154544, 415584)),
+                    birthDateET.text.toString(),
+                    genderET.text.toString()
                 )
                 val body = viewModel.register(registerObject)
                 Log.d(TAG, "body= $body")
