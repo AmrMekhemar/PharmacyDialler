@@ -15,10 +15,12 @@ import com.team.myapplication.register.model.RegisterReturnBody
 import kotlinx.android.synthetic.main.fragment_order.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import splitties.init.appCtx
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val TAG = "OrderFragment"
+
 class OrderFragment : Fragment() {
     val token: String? by lazy {
         SharedPrefsManager(
@@ -36,36 +38,39 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val token = token
-        if (token != null) {
-            Log.d(TAG,token)
-        } else {
-            Log.d(TAG,"token:null")
-        }
+        val token = "aaabbb$token"
+        Log.d(TAG, token)
         orderBtn.setOnClickListener {
-            val nearestPharmacyRequest=NearestPharmacyRequest(
-                orderByTexting = "gfgtgfgsg",
-                orderByPhoto = null,token =token!!
+            val nearestPharmacyRequest = NearestPharmacyRequest(
+                orderByTexting = orderET.text.toString(),
+                orderByPhoto = null
             )
 
             lifecycleScope.launch(Dispatchers.IO) {
 
                 val body = viewModel.requestAnOrder(
+                    token,
                     nearestPharmacyRequest
                 )
 
-                Log.d(TAG,body.message)
-                when(body.message){
-                    "order saved"-> {makeButtonsNonClickable(body)}
-                    else ->{
-                        responseTV.text = body.message
+                Log.d(TAG, body.message)
+                withContext(Dispatchers.Main) {
+                    when (body.message) {
+                        "order saved" -> {
+                            makeButtonsNonClickable(body)
+                        }
+                        else -> {
+
+                            responseTV.text = body.message
+                            responseTV.visibility = View.VISIBLE
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun makeButtonsNonClickable(body:RegisterReturnBody) {
+    private fun makeButtonsNonClickable(body: RegisterReturnBody) {
         orderBtn.isClickable = false
         pickFromCamBtn.isClickable = false
         pickFromGalleryBtn.isClickable = false
@@ -73,6 +78,7 @@ class OrderFragment : Fragment() {
         pickFromCamBtn.setBackgroundColor(Color.GRAY)
         pickFromGalleryBtn.setBackgroundColor(Color.GRAY)
         responseTV.text = body.message
+        responseTV.visibility = View.VISIBLE
     }
 
 }

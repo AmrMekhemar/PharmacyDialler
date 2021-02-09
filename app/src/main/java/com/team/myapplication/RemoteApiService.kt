@@ -3,9 +3,7 @@ package com.team.myapplication
 import com.team.myapplication.register.model.Coordinates
 import com.team.myapplication.register.model.RegisterObject
 import com.team.myapplication.register.model.RegisterReturnBody
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RemoteApiService {
     @POST("customerSignin")
@@ -24,7 +22,8 @@ interface RemoteApiService {
     suspend fun passwordResetRequest(@Body email:String):Any
 
     @POST("getNearestPharmacy")
-    suspend fun getNearestPharmacy(@Body nearestPharmacyRequest:NearestPharmacyRequest): RegisterReturnBody
+    suspend fun getNearestPharmacy(@Header("token") token: String,
+        @Body nearestPharmacyRequest:NearestPharmacyRequest): RegisterReturnBody
 
     @GET("customerCurrent")
     suspend fun getCurrentCustomer(@Body currentCustomerRequest:CurrentCustomerRequest) : Any

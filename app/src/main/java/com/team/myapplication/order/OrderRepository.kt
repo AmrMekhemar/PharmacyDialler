@@ -4,5 +4,8 @@ import com.team.myapplication.NearestPharmacyRequest
 import com.team.myapplication.register.model.RegisterReturnBody
 
 interface OrderRepository {
-   suspend fun requestAnOrder(nearestPharmacyRequest: NearestPharmacyRequest): RegisterReturnBody
+    suspend fun requestAnOrder(
+        token: String,
+        nearestPharmacyRequest: NearestPharmacyRequest
+    ): RegisterReturnBody
 }
