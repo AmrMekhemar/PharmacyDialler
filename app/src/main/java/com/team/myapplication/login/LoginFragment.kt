@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.team.myapplication.LoginObject
-import com.team.myapplication.NetworkStatusChecker
-import com.team.myapplication.R
-import com.team.myapplication.toast
+import com.team.myapplication.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,7 +32,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       var loginStatus = Any()
+        var loginStatus = Any()
         viewModel.getLoginStatus().observe(viewLifecycleOwner, Observer {
             loginStatus = it
             when (it) {
@@ -56,8 +53,13 @@ class LoginFragment : Fragment() {
                 Log.d(TAG, "body is : $body")
                 errorMsgTV.text = body.message
                 errorMsgTV.visibility = View.VISIBLE
-                if (loginStatus is LoginStatus.Success  )
-                    LoginFragmentDirections.actionLoginFragmentToMobileNavigation()
+                if (loginStatus is LoginStatus.Success){
+                    SharedPrefsManager(requireContext()).token = body.token
+                    findNavController().navigate(
+                        LoginFragmentDirections.actionLoginFragmentToMobileNavigation()
+                    )
+                }
+
             }
 
         }

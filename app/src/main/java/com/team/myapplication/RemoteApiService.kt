@@ -24,7 +24,7 @@ interface RemoteApiService {
     suspend fun passwordResetRequest(@Body email:String):Any
 
     @POST("getNearestPharmacy")
-    suspend fun getNearestPharmacy(@Body nearestPharmacyRequest:NearestPharmacyRequest): Any
+    suspend fun getNearestPharmacy(@Body nearestPharmacyRequest:NearestPharmacyRequest): RegisterReturnBody
 
     @GET("customerCurrent")
     suspend fun getCurrentCustomer(@Body currentCustomerRequest:CurrentCustomerRequest) : Any

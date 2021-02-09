@@ -28,6 +28,11 @@
         android:name="com.team.myapplication.activeOrders.ActiveOrdersFragment"
         android:label="@string/current_orders"
         tools:layout="@layout/fragment_active_orders" />
+    <fragment
+        android:id="@+id/navigation_pharmacy"
+        android:name="com.team.myapplication.order.OrderFragment"
+        android:label="fragment_order"
+        tools:layout="@layout/fragment_order" />
 
 
 </navigation>

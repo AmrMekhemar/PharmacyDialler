@@ -83,4 +83,5 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$koin_version"
 
     implementation "com.louiscad.splitties:splitties-appctx:2.0.0"
+    implementation "com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-beta01"
 }
