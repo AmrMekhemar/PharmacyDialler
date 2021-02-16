@@ -50,6 +50,7 @@ class LoginFragment : Fragment() {
                     passwordET.text.toString()
                 )
                 val body = viewModel.login(loginObject)
+                //Any
                 Log.d(TAG, "body is : $body")
                 errorMsgTV.text = body.message
                 errorMsgTV.visibility = View.VISIBLE
@@ -69,13 +70,7 @@ class LoginFragment : Fragment() {
                 LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             )
         }
-//        signIn_btn.setOnClickListener {
-//            findNavController().navigate(
-//
-//            )
-//
 
-//
-//        }
     }
+
 }

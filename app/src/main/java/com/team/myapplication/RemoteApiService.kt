@@ -9,6 +9,7 @@ interface RemoteApiService {
     @POST("customerSignin")
     suspend fun logIn(@Body loginObject: LoginObject): LoginReturnBody
 
+
     @POST("customerSignup")
     suspend fun register(@Body registerObject: RegisterObject): RegisterReturnBody
 
