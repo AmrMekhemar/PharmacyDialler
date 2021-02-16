@@ -9,11 +9,11 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/logoIV"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="200dp"
+        android:layout_marginEnd="32dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/signTV"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa"
         android:gravity="center"
@@ -32,9 +32,9 @@
         android:textColor="@color/black"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/logoIV"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoIV" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"
@@ -65,6 +65,7 @@
             android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:hint="email" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +82,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -98,7 +100,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Confirm Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -113,6 +116,7 @@
             android:id="@+id/phoneNumberET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:hint="Phone Number" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,6 +133,7 @@
             android:id="@+id/addressET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:hint="Address" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,6 +149,7 @@
             android:id="@+id/birthDateET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:hint="Birth Data" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,6 +166,7 @@
             android:id="@+id/genderET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:hint="gender" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -167,19 +174,19 @@
         android:id="@+id/errorTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="error"
         android:textColor="#A82F2F"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/birthTextInputLayout"
+        app:layout_constraintStart_toEndOf="@+id/genderTextInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/signIn_btn" />
 
     <Button
         android:id="@+id/register_btn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/buttonbackground"
@@ -187,20 +194,22 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/logoIV" />
 
     <TextView
         android:id="@+id/signIn_btn"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:text="@string/already_have_an_account_click_here"
         android:textColor="#3F4291"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/birthTextInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/birthTextInputLayout" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/genderTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/logoIV" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -78,9 +80,7 @@ class OrderFragment : Fragment() {
                             makeButtonsNonClickable(body)
                         }
                         else -> {
-
-                            responseTV.text = body.message
-                            responseTV.visibility = View.VISIBLE
+                            appCtx.toast(body.message)
                         }
                     }
                 }
@@ -123,38 +123,43 @@ class OrderFragment : Fragment() {
         orderBtn.setBackgroundColor(Color.GRAY)
         pickFromCamBtn.setBackgroundColor(Color.GRAY)
         pickFromGalleryBtn.setBackgroundColor(Color.GRAY)
-        responseTV.text = body.message
-        responseTV.visibility = View.VISIBLE
+        appCtx.toast(body.message)
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == pickImage) {
-            val selectedPhotoUri = data?.extras!!["data"] as Bitmap
-            photo = getBase64String(selectedPhotoUri)
+            val selectedPhotoUri = data?.data
+            if (selectedPhotoUri != null) {
+                val bitmap = convertToBitmap(selectedPhotoUri)
+                photo = bitmap?.let { getBase64String(it) }
+                adImageView.setImageBitmap(bitmap)
+            }
+
         }
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             val selectedPhotoUri = data?.extras!!["data"] as Bitmap
             photo = getBase64String(selectedPhotoUri)
+            adImageView.setImageBitmap(selectedPhotoUri)
         }
     }
 
-//    private fun convertToBitmap(selectedPhotoUri: Uri): Bitmap? {
-//        return if (Build.VERSION.SDK_INT < 28) {
-//            MediaStore.Images.Media.getBitmap(
-//                requireActivity().contentResolver,
-//                selectedPhotoUri
-//            )
-//        } else {
-//            val source =
-//                ImageDecoder.createSource(
-//                    requireActivity().contentResolver,
-//                    selectedPhotoUri
-//                )
-//            ImageDecoder.decodeBitmap(source)
-//        }
-//    }
+    private fun convertToBitmap(selectedPhotoUri: Uri): Bitmap? {
+        return if (Build.VERSION.SDK_INT < 28) {
+            MediaStore.Images.Media.getBitmap(
+                requireActivity().contentResolver,
+                selectedPhotoUri
+            )
+        } else {
+            val source =
+                ImageDecoder.createSource(
+                    requireActivity().contentResolver,
+                    selectedPhotoUri
+                )
+            ImageDecoder.decodeBitmap(source)
+        }
+    }
 
     private fun getBase64String(bitmap: Bitmap): String? {
         val byteArrayOutputStream = ByteArrayOutputStream()

@@ -17,4 +17,6 @@
     <string name="current_orders">Current Orders</string>
     <string name="check_internet_connection">Check your internet connection</string>
     <string name="order">Order</string>
+    <string name="click_here_to_register_an_account">click here to register an account!</string>
+    <string name="already_have_an_account_click_here">Already Have an account, Click Here!</string>
 </resources>

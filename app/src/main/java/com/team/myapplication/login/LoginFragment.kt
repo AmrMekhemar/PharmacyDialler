@@ -1,5 +1,6 @@
 package com.team.myapplication.login
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.team.myapplication.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -35,17 +37,18 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().nav_view.visibility = View.INVISIBLE
         signIn_btn.setOnClickListener {
-
+            progressImage.visibility = View.VISIBLE
             lifecycleScope.launch {
                 val loginObject = LoginObject(
                     emailET.text.toString(),
                     passwordET.text.toString()
                 )
                 val body = viewModel.login(loginObject)
-                //Any
                 Log.d(TAG, "body is : ${body.message}")
                 errorMsgTV.text = body.message
+                delay(200)
                 errorMsgTV.visibility = View.VISIBLE
+                progressImage.visibility = View.INVISIBLE
                 if (body.message == "success"){
                     SharedPrefsManager(requireContext()).token = body.token
                     findNavController().navigate(

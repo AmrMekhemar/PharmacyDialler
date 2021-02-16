@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        actionBar?.setHomeButtonEnabled(false)
+
         if (savedInstanceState== null){
             val prefsManager = SharedPrefsManager(this)
             if (!prefsManager.token.isNullOrBlank()) {
