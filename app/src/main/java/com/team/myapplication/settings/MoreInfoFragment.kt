@@ -5,19 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.myapplication.R
+import com.team.myapplication.SharedPrefsManager
 import com.team.myapplication.news.model.news.MoreInfoItem
+import com.team.myapplication.register.RegisterFragmentDirections
+import com.team.myapplication.toast
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_more.*
+import splitties.init.appCtx
 
 
 class MoreInfoFragment : Fragment() {
-    val infoItems = listOf(
-        MoreInfoItem(R.drawable.settings,"Settings"),
-        MoreInfoItem(R.drawable.phone,"Contact Us"),
-        MoreInfoItem(R.drawable.info,"About Us"),
-        MoreInfoItem(R.drawable.logout,"Logout")
+    private val infoItems = listOf(
+        MoreInfoItem(R.drawable.settings, "Settings"),
+        MoreInfoItem(R.drawable.phone, "Contact Us"),
+        MoreInfoItem(R.drawable.info, "About Us"),
+        MoreInfoItem(R.drawable.logout, "Logout")
     )
 
 
@@ -32,7 +38,8 @@ class MoreInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         moreInfo_rv.layoutManager = layoutManager
         val dividerItemDecoration = DividerItemDecoration(
             moreInfo_rv.context,
@@ -40,6 +47,14 @@ class MoreInfoFragment : Fragment() {
         )
         moreInfo_rv.addItemDecoration(dividerItemDecoration)
         moreInfo_rv.adapter =
-            MoreInfoAdapter(infoItems) {}
+            MoreInfoAdapter(infoItems) {
+                if (it.text == "Logout") {
+                    appCtx.toast("Logged out")
+                    requireActivity().nav_view.visibility = View.INVISIBLE
+                    SharedPrefsManager(requireContext()).token = ""
+                    findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToLoginFragment())
+                } else {
+                }
+            }
     }
 }

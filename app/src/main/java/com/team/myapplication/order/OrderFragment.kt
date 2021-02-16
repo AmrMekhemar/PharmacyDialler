@@ -54,7 +54,6 @@ class OrderFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_order, container, false)
     }
 
-    @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val token = "aaabbb$token"
@@ -88,11 +87,16 @@ class OrderFragment : Fragment() {
             }
         }
         pickAnImageFromGallery()
+        pickAnImageFromCamera()
+    }
+
+    @SuppressLint("WrongConstant")
+    private fun pickAnImageFromCamera() {
         pickFromCamBtn.setOnClickListener {
             if (checkSelfPermission(
                     appCtx,
                     Manifest.permission.CAMERA
-                ) !== PackageManager.PERMISSION_GRANTED
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
                 requestPermissions(
                     arrayOf(Manifest.permission.CAMERA),

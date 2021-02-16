@@ -16,6 +16,7 @@ import com.team.myapplication.R
 import com.team.myapplication.register.model.Coordinates
 import com.team.myapplication.register.model.LocationAsCoordinates
 import com.team.myapplication.register.model.RegisterObject
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_order.*
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.coroutines.launch
@@ -37,6 +38,13 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().nav_view.visibility = View.INVISIBLE
+        if (nav_view != null) {
+            nav_view.visibility = View.INVISIBLE
+        }
+        signIn_btn.setOnClickListener {
+            findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+        }
         register_btn.setOnClickListener {
             lifecycleScope.launch {
                 val registerObject = RegisterObject(
@@ -66,7 +74,4 @@ class RegisterFragment : Fragment() {
         }
 
     }
-
-
-
 }

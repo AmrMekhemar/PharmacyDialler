@@ -10,17 +10,13 @@ import com.team.myapplication.R
 import com.team.myapplication.news.model.news.MoreInfoItem
 
 
-class MoreInfoAdapter(val moreInfoItems : List<MoreInfoItem>, val listener: (Int) -> Unit) :
+class MoreInfoAdapter(private val moreInfoItems: List<MoreInfoItem>, val listener: (MoreInfoItem) -> Unit) :
     RecyclerView.Adapter<MoreInfoAdapter.ViewHolder?>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemIcon: ImageView = itemView.findViewById(R.id.item_icon)
         var itemText: TextView = itemView.findViewById(R.id.item_tv)
-        var viewHolderView: View
 
-        init {
-            viewHolderView = itemView
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,11 +30,9 @@ class MoreInfoAdapter(val moreInfoItems : List<MoreInfoItem>, val listener: (Int
         holder.itemText.text = item.text
 
         holder.itemIcon.setImageResource(item.icon)
-
-        holder.viewHolderView.setOnClickListener {
-
+        holder.itemView.setOnClickListener {
+            listener(item)
         }
-
     }
 
 

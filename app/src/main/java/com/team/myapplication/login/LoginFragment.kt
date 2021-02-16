@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.team.myapplication.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,16 +33,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var loginStatus = Any()
-        viewModel.getLoginStatus().observe(viewLifecycleOwner, Observer {
-            loginStatus = it
-            when (it) {
-                is LoginStatus.Loading -> requireContext().toast("Loading")
-                is LoginStatus.Success -> requireContext().toast("Success")
-                is LoginStatus.Error -> requireContext().toast("Error")
-            }
-        })
-
+        requireActivity().nav_view.visibility = View.INVISIBLE
         signIn_btn.setOnClickListener {
 
             lifecycleScope.launch {
@@ -51,14 +43,13 @@ class LoginFragment : Fragment() {
                 )
                 val body = viewModel.login(loginObject)
                 //Any
-                Log.d(TAG, "body is : $body")
+                Log.d(TAG, "body is : ${body.message}")
                 errorMsgTV.text = body.message
                 errorMsgTV.visibility = View.VISIBLE
-                if (loginStatus is LoginStatus.Success){
+                if (body.message == "success"){
                     SharedPrefsManager(requireContext()).token = body.token
                     findNavController().navigate(
-                        LoginFragmentDirections.actionLoginFragmentToMobileNavigation()
-                    )
+                        LoginFragmentDirections.actionLoginFragmentToNavigationCurrent())
                 }
 
             }
