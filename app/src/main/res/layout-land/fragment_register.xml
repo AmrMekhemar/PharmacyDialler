@@ -180,7 +180,7 @@
         android:textColor="#A82F2F"
         android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/genderTextInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/signIn_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/haveAccount_btn" />
 
     <Button
         android:id="@+id/register_btn"
@@ -197,7 +197,7 @@
         app:layout_constraintStart_toStartOf="@+id/logoIV" />
 
     <TextView
-        android:id="@+id/signIn_btn"
+        android:id="@+id/haveAccount_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -210,6 +210,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/genderTextInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/logoIV" />
+
+    <Button
+        android:id="@+id/pickLocationBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Pick MY Location"
+        app:layout_constraintStart_toStartOf="@+id/birthTextInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/birthTextInputLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

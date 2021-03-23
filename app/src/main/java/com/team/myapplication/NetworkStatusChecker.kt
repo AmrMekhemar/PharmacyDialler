@@ -8,7 +8,7 @@ import splitties.init.appCtx
 /**
  * Checks the Internet connection and performs an action if it's active.
  */
-class NetworkStatusChecker() : KoinComponent {
+class NetworkStatusChecker : KoinComponent {
     private val connectivityManager: ConnectivityManager by inject()
     inline fun performIfConnectedToInternet(action: () -> Unit) {
         if (hasInternetConnection()) {

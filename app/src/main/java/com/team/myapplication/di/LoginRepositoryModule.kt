@@ -1,21 +1,14 @@
 package com.team.myapplication.di
 
-import androidx.room.Room
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.team.myapplication.Application.Companion.BASE_URL
 import com.team.myapplication.RemoteApiService
-import com.team.myapplication.TLSSocketFactory
-import com.team.myapplication.TrustManager
-import com.team.myapplication.login.LoginRepository
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import splitties.init.appCtx
-import java.security.cert.TrustAnchor
-import javax.net.ssl.TrustManagerFactory
 
 val LoginRepositoryModule = module {
     fun provideUseApi(retrofit: Retrofit): RemoteApiService {

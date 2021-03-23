@@ -19,4 +19,9 @@
     <string name="order">Order</string>
     <string name="click_here_to_register_an_account">click here to register an account!</string>
     <string name="already_have_an_account_click_here">Already Have an account, Click Here!</string>
+    <string name="google_maps_key"
+        templateMergeStrategy="preserve"
+        translatable="false">
+        AIzaSyARgJwn2ScEoZS6yRu6waEE1uvNS_51X_s</string>
+
 </resources>

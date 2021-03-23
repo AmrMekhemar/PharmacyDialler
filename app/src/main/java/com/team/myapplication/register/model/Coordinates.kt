@@ -1,6 +1,10 @@
 package com.team.myapplication.register.model
 
-data class Coordinates (
-	val lat : Int,
-	val lon : Int
-)
+import android.os.Parcel
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+@Parcelize
+data class Coordinates  (
+	val lat : Double,
+	val lon : Double
+) : Parcelable

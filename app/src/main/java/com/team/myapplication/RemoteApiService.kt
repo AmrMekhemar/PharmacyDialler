@@ -9,9 +9,14 @@ interface RemoteApiService {
     @POST("customerSignin")
     suspend fun logIn(@Body loginObject: LoginObject): LoginReturnBody
 
-
     @POST("customerSignup")
     suspend fun register(@Body registerObject: RegisterObject): RegisterReturnBody
+
+    @GET("customerOrderHistory")
+    suspend fun getOrderHistory(@Header("token") token:String): OrderHistoryResponse
+
+    @GET("customerCurrentOrders")
+    suspend fun getCurrentOrders(@Header("token") token:String): Any
 
     @POST("rate")
     suspend fun sendRate(@Body rateObject: RateRequest): Any

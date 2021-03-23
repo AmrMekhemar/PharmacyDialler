@@ -86,4 +86,11 @@ dependencies {
     implementation "com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-beta01"
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    // location picker
+    implementation 'com.github.MostafaGad1911:LocationPicker:2.0'
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+
 }
