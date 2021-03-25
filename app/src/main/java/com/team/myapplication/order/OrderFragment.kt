@@ -26,6 +26,7 @@ import com.team.myapplication.R
 import com.team.myapplication.SharedPrefsManager
 import com.team.myapplication.register.model.RegisterReturnBody
 import com.team.myapplication.toast
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_order.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,6 +59,7 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().nav_view.visibility = View.VISIBLE
         val token = "aaabbb$token"
         Log.d(TAG, token)
         orderBtn.setOnClickListener {

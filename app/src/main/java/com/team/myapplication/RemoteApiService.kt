@@ -1,5 +1,6 @@
 package com.team.myapplication
 
+import com.google.gson.annotations.SerializedName
 import com.team.myapplication.register.model.Coordinates
 import com.team.myapplication.register.model.RegisterObject
 import com.team.myapplication.register.model.RegisterReturnBody
@@ -13,10 +14,16 @@ interface RemoteApiService {
     suspend fun register(@Body registerObject: RegisterObject): RegisterReturnBody
 
     @GET("customerOrderHistory")
-    suspend fun getOrderHistory(@Header("token") token:String): OrderHistoryResponse
+    suspend fun getOrderHistory(@Header("token") token: String): OrderHistoryResponse
 
     @GET("customerCurrentOrders")
-    suspend fun getCurrentOrders(@Header("token") token:String): Any
+    suspend fun getCurrentOrders(@Header("token") token: String): OrderHistoryResponse
+
+    @GET("currentOrder/{orderId}")
+    suspend fun getSpecificOrder(
+        @Header("token") token: String,
+        @Path("orderId") orderId: Any
+    ): Any
 
     @POST("rate")
     suspend fun sendRate(@Body rateObject: RateRequest): Any
@@ -25,38 +32,40 @@ interface RemoteApiService {
     suspend fun reportProblem(@Body reportProblem: ReportProblemRequest): Any
 
     @POST("forgotPasswordCustomer")
-    suspend fun passwordResetRequest(@Body email:String):Any
+    suspend fun passwordResetRequest(@Body email: String): Any
 
     @POST("getNearestPharmacy")
-    suspend fun getNearestPharmacy(@Header("token") token: String,
-        @Body nearestPharmacyRequest:NearestPharmacyRequest): RegisterReturnBody
+    suspend fun getNearestPharmacy(
+        @Header("token") token: String,
+        @Body nearestPharmacyRequest: NearestPharmacyRequest
+    ): RegisterReturnBody
 
     @GET("customerCurrent")
-    suspend fun getCurrentCustomer(@Body currentCustomerRequest:CurrentCustomerRequest) : Any
+    suspend fun getCurrentCustomer(@Body currentCustomerRequest: CurrentCustomerRequest): Any
 
     @GET("ourPharmacies")
-    suspend fun getRegisteredPharmacies(@Body token:String):Any
+    suspend fun getRegisteredPharmacies(@Body token: String): Any
 
     @GET("cancel")
-    suspend fun cancelOrder(@Body cancelRequest:CancelRequest):Any
+    suspend fun cancelOrder(@Body cancelRequest: CancelRequest): Any
 
     // Profile Edit
     @POST("editCustomerName")
-    suspend fun editCustomerName(@Body name:String):Any
+    suspend fun editCustomerName(@Body name: String): Any
 
 
     @POST("editCustomerPass")
-    suspend fun editCustomerPassword(@Body editPasswordRequest: EditPasswordRequest):Any
+    suspend fun editCustomerPassword(@Body editPasswordRequest: EditPasswordRequest): Any
 
     @POST("editCustomerPhone")
-    suspend fun editCustomerPhone(@Body phone:String):Any
+    suspend fun editCustomerPhone(@Body phone: String): Any
 
     @POST("editCustomerAddress")
-    suspend fun editCustomerAddress(@Body address:String):Any
+    suspend fun editCustomerAddress(@Body address: String): Any
 
     @POST("editCustomerCoordinates")
-    suspend fun editCustomerCoordinates(@Body coordinates: Coordinates):Any
+    suspend fun editCustomerCoordinates(@Body coordinates: Coordinates): Any
 
     @POST("editCustomerPhoto")
-    suspend fun editCustomerPhoto(@Body photo:String)
+    suspend fun editCustomerPhoto(@Body photo: String)
 }

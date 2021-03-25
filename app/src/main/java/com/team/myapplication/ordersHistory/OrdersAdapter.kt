@@ -9,7 +9,7 @@ import com.team.myapplication.Order
 import com.team.myapplication.R
 
 
-class OrdersAdapter(private val orders: List<Order>, val listener: (Order) -> Unit) :
+class OrdersAdapter(private val orders: List<Order>, val listener: (String) -> Unit) :
     RecyclerView.Adapter<OrdersAdapter.ViewHolder?>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,7 +35,7 @@ class OrdersAdapter(private val orders: List<Order>, val listener: (Order) -> Un
         holder.statusTV.text =  item.globalStatus
         holder.medicineTV.text =  item.orderByTexting ?: "Order details is hidden"
         holder.itemView.setOnClickListener {
-            listener(item)
+            listener(item._id)
         }
     }
 

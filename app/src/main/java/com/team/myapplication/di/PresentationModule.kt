@@ -17,6 +17,8 @@ import com.team.myapplication.ordersHistory.OrderHistoryViewModel
 import com.team.myapplication.register.RegisterRepository
 import com.team.myapplication.register.RegisterRepositoryImpl
 import com.team.myapplication.register.RegisterViewModel
+import com.team.myapplication.specificOrder.SpecificOrderRepoImpl
+import com.team.myapplication.specificOrder.SpecificOrderViewModel
 import org.koin.dsl.module
 import splitties.init.appCtx
 
@@ -42,6 +44,8 @@ val presentationModule = module {
     single { RegisterViewModel(get()) }
     single { OrderViewModel(get()) }
     single { OrderHistoryImpl(get()) }
+    single { SpecificOrderRepoImpl(get()) }
+    single{ SpecificOrderViewModel()}
     single { ActiveOrdersRepositoryImpl(get()) }
     single { ActiveOrdersViewModel() }
     single { OrderHistoryViewModel() }

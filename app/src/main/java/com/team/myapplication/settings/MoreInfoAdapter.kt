@@ -16,7 +16,6 @@ class MoreInfoAdapter(private val moreInfoItems: List<MoreInfoItem>, val listene
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemIcon: ImageView = itemView.findViewById(R.id.item_icon)
         var itemText: TextView = itemView.findViewById(R.id.item_tv)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

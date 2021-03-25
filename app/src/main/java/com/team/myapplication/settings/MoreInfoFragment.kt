@@ -38,6 +38,7 @@ class MoreInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().nav_view.visibility = View.VISIBLE
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         moreInfo_rv.layoutManager = layoutManager
@@ -52,9 +53,11 @@ class MoreInfoFragment : Fragment() {
                     appCtx.toast("Logged out")
                     requireActivity().nav_view.visibility = View.INVISIBLE
                     SharedPrefsManager(requireContext()).token = ""
-                    findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToLoginFragment())
-                } else {
+                    findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToAboutUsFragment())
+                }  else if (it.text == "About Us") {
+                    findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToAboutUsFragment())
                 }
+
             }
     }
 }

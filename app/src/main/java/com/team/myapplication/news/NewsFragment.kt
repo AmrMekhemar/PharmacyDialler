@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.myapplication.R
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_news.*
 
 
@@ -31,8 +32,11 @@ companion object{
         return root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().nav_view.visibility = View.VISIBLE
         news_rv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         newsViewModel.loadArticles()?.observe(this.viewLifecycleOwner, Observer {
             Log.d(TAG,"articles: $it")

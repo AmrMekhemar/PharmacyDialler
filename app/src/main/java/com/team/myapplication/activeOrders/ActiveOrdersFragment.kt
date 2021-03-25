@@ -7,12 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.myapplication.R
 import com.team.myapplication.SharedPrefsManager
+import com.team.myapplication.ordersHistory.OrdersAdapter
+import com.team.myapplication.ordersHistory.OrdersHistoryFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_active_orders.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import splitties.init.appCtx
 
 
 class ActiveOrdersFragment : Fragment() {
@@ -38,11 +45,22 @@ class ActiveOrdersFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         lifecycleScope.launch {
-            val body = viewModel.getOrderHistory(token)
-            Log.e(TAG,"active orders: $body")
+            val body = token.let { viewModel.getOrderHistory(it) }
+            Log.d(TAG, "active orders message: ${body.message}")
+            Log.d(TAG, "active orders: ${body.customerOrders}")
+            withContext(Dispatchers.Main) {
+                val layoutManager by inject<LinearLayoutManager>()
+                active_ordersRV.layoutManager = layoutManager
+                active_ordersRV.adapter = body.customerOrders?.let {
+                    OrdersAdapter(it) {
+                        findNavController().navigate(
+                            ActiveOrdersFragmentDirections.actionNavigationCurrentToSpecificOrderFragment(
+                                it
+                            )
+                        )
+                    }
+                }
+            }
         }
-
     }
-
-
 }

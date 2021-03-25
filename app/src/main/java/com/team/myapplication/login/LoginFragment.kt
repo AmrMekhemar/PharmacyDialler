@@ -11,8 +11,10 @@ import androidx.navigation.fragment.findNavController
 import com.team.myapplication.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -33,6 +35,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().nav_view.visibility = View.INVISIBLE
+
         haveAccount_btn.setOnClickListener {
             progressImage.visibility = View.VISIBLE
             lifecycleScope.launch {
@@ -42,6 +45,7 @@ class LoginFragment : Fragment() {
                 )
                 val body = viewModel.login(loginObject)
                 Log.d(TAG, "body is : ${body.message}")
+//                Log.d(TAG,"body is "+body.message)
                 errorMsgTV.text = body.message
                 delay(200)
                 errorMsgTV.visibility = View.VISIBLE

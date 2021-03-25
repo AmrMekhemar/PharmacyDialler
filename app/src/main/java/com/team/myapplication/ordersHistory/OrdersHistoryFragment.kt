@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.team.myapplication.R
 import com.team.myapplication.SharedPrefsManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,6 +41,11 @@ class OrdersHistoryFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_history, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().nav_view.visibility = View.VISIBLE
+    }
+
     override fun onStart() {
         super.onStart()
         lifecycleScope.launch {
@@ -51,7 +58,9 @@ class OrdersHistoryFragment : Fragment() {
                 if (body!= null) {
                     val layoutManager by inject<LinearLayoutManager>()
                     pharmacyOrders_rv.layoutManager = layoutManager
-                    pharmacyOrders_rv.adapter = body.customerOrders?.let { OrdersAdapter(it){} }
+                    pharmacyOrders_rv.adapter = body.customerOrders?.let { OrdersAdapter(it){
+                        findNavController().navigate(OrdersHistoryFragmentDirections.actionNavigationHistoryToSpecificOrderFragment(it))
+                    } }
                 }
             }
         }
