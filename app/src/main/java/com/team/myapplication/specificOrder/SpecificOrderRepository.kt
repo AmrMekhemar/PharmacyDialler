@@ -1,7 +1,10 @@
 package com.team.myapplication.specificOrder
 
-import retrofit2.http.Path
+import com.team.myapplication.SpecificOrderResponse
 
 interface SpecificOrderRepository {
-    suspend fun getSpecificOrder(token: String,orderId:String): Any
+    suspend fun getSpecificOrder(token: String,orderId:String): SpecificOrderResponse
+    suspend fun cancelOrder( token: String,
+                             cancelRequest: CancelRequest
+    ): CancelResponse
 }
