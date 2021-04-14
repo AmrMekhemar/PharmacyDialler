@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_more"
         android:name="com.team.myapplication.settings.MoreInfoFragment"
-        android:label="@string/title_more"
+        android:label="Options"
         tools:layout="@layout/fragment_more">
         <action
             android:id="@+id/action_navigation_more_to_loginFragment"
@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/navigation_current"
         android:name="com.team.myapplication.activeOrders.ActiveOrdersFragment"
-        android:label="@string/current_orders"
+        android:label="Active Orders"
         tools:layout="@layout/fragment_active_orders" >
         <action
             android:id="@+id/action_navigation_current_to_specificOrderFragment"
@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/navigation_pharmacy"
         android:name="com.team.myapplication.order.OrderFragment"
-        android:label="fragment_order"
+        android:label="Make an Order"
         tools:layout="@layout/fragment_order" />
     <fragment
         android:id="@+id/navigation_history"
@@ -84,7 +84,7 @@
     <fragment
         android:id="@+id/mapsFragment"
         android:name="com.team.myapplication.MapsFragment"
-        android:label="fragment_maps"
+        android:label="Pick a Location"
         tools:layout="@layout/fragment_maps" >
 
         <action
@@ -96,7 +96,7 @@
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="com.team.myapplication.AboutUsFragment"
-        android:label="fragment_about_us"
+        android:label="About Us"
         tools:layout="@layout/fragment_about_us" >
         <action
             android:id="@+id/action_aboutUsFragment_to_navigation_more"
@@ -105,10 +105,13 @@
     <fragment
         android:id="@+id/specificOrderFragment"
         android:name="com.team.myapplication.specificOrder.SpecificOrderFragment"
-        android:label="fragment_specific_order"
+        android:label="Order Details"
         tools:layout="@layout/fragment_specific_order" >
         <argument
             android:name="orderId"
             app:argType="string" />
+        <action
+            android:id="@+id/action_specificOrderFragment_to_navigation_pharmacy"
+            app:destination="@id/navigation_pharmacy" />
     </fragment>
 </navigation>

@@ -37,7 +37,7 @@ companion object{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().nav_view.visibility = View.VISIBLE
-        news_rv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        news_rv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         newsViewModel.loadArticles()?.observe(this.viewLifecycleOwner, Observer {
             Log.d(TAG,"articles: $it")
             news_rv.adapter = NewsAdapter(it){

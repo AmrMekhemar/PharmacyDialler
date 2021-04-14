@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -34,8 +35,13 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().nav_view.visibility = View.INVISIBLE
-
+        requireActivity().nav_view.visibility = View.GONE
+        emailET.doOnTextChanged { _,_,_,_ ->
+            errorMsgTV.visibility = View.INVISIBLE
+        }
+        passwordET.doOnTextChanged { _,_,_,_ ->
+            errorMsgTV.visibility = View.INVISIBLE
+        }
         haveAccount_btn.setOnClickListener {
             progressImage.visibility = View.VISIBLE
             lifecycleScope.launch {

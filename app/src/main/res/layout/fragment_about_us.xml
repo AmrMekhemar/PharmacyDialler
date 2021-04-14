@@ -14,7 +14,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:text="Want to help! make a donation or get involved!"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -37,7 +37,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Our Services are Designed and mentained by a small, pasionate team"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/about_us_title" />
@@ -47,11 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:text="Click Here!"
         android:textColor="#2950C2"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView6" />
 
     <TextView

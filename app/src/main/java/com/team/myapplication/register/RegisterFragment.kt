@@ -1,6 +1,9 @@
 package com.team.myapplication.register
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 
 class RegisterFragment : Fragment() {
@@ -27,6 +31,7 @@ class RegisterFragment : Fragment() {
     private val viewModel: RegisterViewModel by viewModel()
     private lateinit var args: RegisterFragmentArgs
     private var coordinates: Coordinates? = null
+    private lateinit var picker: DatePickerDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,16 +43,31 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().nav_view.visibility = View.INVISIBLE
-        if (nav_view != null) {
-            nav_view.visibility = View.INVISIBLE
-        }
+        requireActivity().nav_view.visibility = View.GONE
         arguments?.let {
             args = RegisterFragmentArgs.fromBundle(it)
             val lat = args.lat
             val lon = args.lon
             coordinates = Coordinates(lat.toDouble(), lon.toDouble())
             Log.d(TAG, lat)
+        }
+
+        birthDateET.setOnClickListener {
+            val cldr: Calendar = Calendar.getInstance()
+            val day: Int = cldr.get(Calendar.DAY_OF_MONTH)
+            val month: Int = cldr.get(Calendar.MONTH)
+            val year: Int = cldr.get(Calendar.YEAR)
+            // date picker dialog
+            // date picker dialog
+            picker = DatePickerDialog(
+                requireContext(),
+                OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    birthDateET.text = "$year-$monthOfYear-$dayOfMonth"   },
+                year,
+                month,
+                day
+            )
+            picker.show()
         }
 
         haveAccount_btn.setOnClickListener {
@@ -66,7 +86,7 @@ class RegisterFragment : Fragment() {
                         emailET.text.toString(),
                         passwordET.text.toString(),
                         confirmPasswordET.text.toString(),
-                        phoneNumberET.text.toString(),
+                        mutableListOf(phoneNumberET.text.toString()),
                         addressET.text.toString(),
                         LocationAsCoordinates(coordinates = coordinates!!),
                         birthDateET.text.toString(),

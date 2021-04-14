@@ -29,4 +29,34 @@
         app:layout_constraintTop_toBottomOf="@+id/PharmacyOrdersHistory_tv"
         tools:listitem="@layout/orders_item" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/no_history_placeholder"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pharmacyOrders_rv"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/empty_box"
+        app:lottie_url="REPLACE_JSON_URL"
+        app:srcCompat="@raw/empty_box">
+
+    </com.airbnb.lottie.LottieAnimationView>
+
+    <TextView
+        android:id="@+id/no_history_orders_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-black"
+        android:text="There are no previous orders"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no_history_placeholder" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

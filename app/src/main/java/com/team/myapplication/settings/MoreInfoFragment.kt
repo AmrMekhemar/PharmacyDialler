@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.myapplication.R
 import com.team.myapplication.SharedPrefsManager
 import com.team.myapplication.news.model.news.MoreInfoItem
-import com.team.myapplication.register.RegisterFragmentDirections
 import com.team.myapplication.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_more.*
@@ -32,8 +31,7 @@ class MoreInfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_more, container, false)
-        return root
+        return inflater.inflate(R.layout.fragment_more, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +51,7 @@ class MoreInfoFragment : Fragment() {
                     appCtx.toast("Logged out")
                     requireActivity().nav_view.visibility = View.INVISIBLE
                     SharedPrefsManager(requireContext()).token = ""
-                    findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToAboutUsFragment())
+                    findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToLoginFragment())
                 }  else if (it.text == "About Us") {
                     findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToAboutUsFragment())
                 }

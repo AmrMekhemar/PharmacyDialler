@@ -20,7 +20,7 @@ class AboutUsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().nav_view.visibility = View.INVISIBLE
+        requireActivity().nav_view.visibility = View.GONE
     }
 
 

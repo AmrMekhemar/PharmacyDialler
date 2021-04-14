@@ -60,6 +60,8 @@ class OrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().nav_view.visibility = View.VISIBLE
+        val title = "Order"
+        activity?.actionBar?.title   = title
         val token = "aaabbb$token"
         Log.d(TAG, token)
         orderBtn.setOnClickListener {

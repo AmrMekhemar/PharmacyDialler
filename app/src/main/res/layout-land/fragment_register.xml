@@ -138,36 +138,18 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/birthTextInputLayout"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/phoneNumberTextInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumberTextInputLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/birthDateET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:hint="Birth Data" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/genderTextInputLayout"
         android:layout_width="185dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/birthTextInputLayout"
         app:layout_constraintEnd_toEndOf="@+id/emailTextInputLayout"
-        app:layout_constraintStart_toEndOf="@+id/birthTextInputLayout">
+        tools:layout_editor_absoluteY="212dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/genderET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:hint="gender" />
+            android:hint="gender"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -215,10 +197,9 @@
         android:id="@+id/pickLocationBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="Pick MY Location"
-        app:layout_constraintStart_toStartOf="@+id/birthTextInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/birthTextInputLayout" />
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="275dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

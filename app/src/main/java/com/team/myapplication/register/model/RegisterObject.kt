@@ -6,7 +6,7 @@ data class RegisterObject(
     val email: String,
     val password: String,
     val confirmPassword: String,
-    val phone: String,
+    val phone: List<String>,
     val locationAsAddress: String,
     val locationAsCoordinates: LocationAsCoordinates,
 	val birthDate: String,

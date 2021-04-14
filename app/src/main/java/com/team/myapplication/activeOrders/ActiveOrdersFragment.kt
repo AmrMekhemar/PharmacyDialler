@@ -60,7 +60,12 @@ class ActiveOrdersFragment : Fragment() {
                         )
                     }
                 }
-            }
+                if (body.customerOrders == null){
+                    no_current_placeholder.visibility = View.VISIBLE
+                    no_current_orders_TV.visibility = View.VISIBLE
+                }
+
+        }
         }
     }
 }

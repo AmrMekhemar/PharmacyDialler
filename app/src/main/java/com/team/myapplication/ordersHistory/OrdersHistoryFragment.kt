@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.team.myapplication.R
 import com.team.myapplication.SharedPrefsManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_active_orders.*
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,18 +50,30 @@ class OrdersHistoryFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         lifecycleScope.launch {
-          val body =   token?.let { orderHistoryViewModel.getOrderHistory(it) }
+            val body = token?.let { orderHistoryViewModel.getOrderHistory(it) }
             if (body != null) {
-                Log.d(TAG,"order history body is: ${body.message}")
-                Log.d(TAG,"order history orders: ${body.customerOrders}")
+                Log.d(TAG, "order history body is: ${body.message}")
+                Log.d(TAG, "order history orders: ${body.customerOrders}")
             }
-            withContext(Dispatchers.Main){
-                if (body!= null) {
-                    val layoutManager by inject<LinearLayoutManager>()
-                    pharmacyOrders_rv.layoutManager = layoutManager
-                    pharmacyOrders_rv.adapter = body.customerOrders?.let { OrdersAdapter(it){
-                        findNavController().navigate(OrdersHistoryFragmentDirections.actionNavigationHistoryToSpecificOrderFragment(it))
-                    } }
+            withContext(Dispatchers.Main) {
+                if (body != null) {
+                    if (body.customerOrders != null) {
+                        val layoutManager by inject<LinearLayoutManager>()
+                        pharmacyOrders_rv.layoutManager = layoutManager
+                        pharmacyOrders_rv.adapter = body.customerOrders?.let {
+                            OrdersAdapter(it) {
+                                findNavController().navigate(
+                                    OrdersHistoryFragmentDirections.actionNavigationHistoryToSpecificOrderFragment(
+                                        it
+                                    )
+                                )
+                            }
+                        }
+                    } else {
+                        no_history_placeholder.visibility = View.VISIBLE
+                        no_history_orders_TV.visibility = View.VISIBLE
+
+                    }
                 }
             }
         }

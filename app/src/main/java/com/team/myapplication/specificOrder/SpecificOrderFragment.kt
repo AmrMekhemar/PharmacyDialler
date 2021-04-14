@@ -1,6 +1,9 @@
 package com.team.myapplication.specificOrder
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -29,6 +32,7 @@ class SpecificOrderFragment : Fragment() {
             appCtx
         ).token
     }
+    lateinit var  decodedByte : Bitmap
     private val viewModel: SpecificOrderViewModel by viewModel()
     private lateinit var args: SpecificOrderFragmentArgs
     override fun onCreateView(
@@ -44,6 +48,12 @@ class SpecificOrderFragment : Fragment() {
         requireActivity().nav_view.visibility = View.GONE
         arguments?.let {
             args = SpecificOrderFragmentArgs.fromBundle(it)
+        }
+        prescriptionDetails_imageView.setOnClickListener {
+//            val intent = Intent()
+//            intent.action = Intent.ACTION_VIEW
+//            intent.data = decodedByte as Uri
+//            startActivity(intent)
         }
         cancel_icon.setOnClickListener {
             lifecycleScope.launch {
@@ -68,16 +78,18 @@ class SpecificOrderFragment : Fragment() {
     }
 
     private fun populateUI(body: SpecificOrderResponse) {
-        if (body.orderData.orderByTexting != null)
+        if (body.orderData.orderByTexting != null){
             PrescriptionDetails_tv.text = body.orderData.orderByTexting
-        else PrescriptionDetails_tv.visibility = View.INVISIBLE
+        }
+        else PrescriptionDetails_tv.visibility = View.GONE
         if (body.orderData.orderByPhoto != null) {
             val decodedString: ByteArray =
                 Base64.decode(body.orderData.orderByPhoto, Base64.DEFAULT)
-            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            PrescriptionDetails_imageView.setImageBitmap(decodedByte)
+             decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+            prescriptionDetails_imageView.setImageBitmap(decodedByte)
+            prescriptionDetails_imageView.visibility = View.VISIBLE
 
-        } else PrescriptionDetails_imageView.visibility = View.INVISIBLE
+        } else prescriptionDetails_imageView.visibility = View.GONE
 
         pharmacy_name.text = body.pharmacyData.name
         pharmacy_address.text = body.pharmacyData.locationAsAddress

@@ -21,5 +21,7 @@
     <string name="already_have_an_account_click_here">Already Have an account, Click Here!</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyARgJwn2ScEoZS6yRu6waEE1uvNS_51X_s</string>
+    <string name="we_didn_t_find_any_previous_orders">We didn\'t find any previous orders</string>
+    <string name="there_are_no_active_orders_right_now">There are no active orders right now</string>
 
 </resources>
