@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.team.myapplication.R
 import com.team.myapplication.SharedPrefsManager
 import com.team.myapplication.SpecificOrderResponse
@@ -49,6 +50,7 @@ class SpecificOrderFragment : Fragment() {
         arguments?.let {
             args = SpecificOrderFragmentArgs.fromBundle(it)
         }
+
         prescriptionDetails_imageView.setOnClickListener {
 //            val intent = Intent()
 //            intent.action = Intent.ACTION_VIEW
@@ -59,9 +61,13 @@ class SpecificOrderFragment : Fragment() {
             lifecycleScope.launch {
                val body= token?.let { it1 -> viewModel.cancelOrder(it1,
                    CancelRequest(args.orderId)
+
                ) }
-                if (body != null) {
-                    toast(body.msg)
+                findNavController().navigate(SpecificOrderFragmentDirections
+                    .actionSpecificOrderFragmentToNavigationPharmacy())
+                if (body?.message != null) {
+                    Log.d(TAG, body.message)
+                    toast(body.message)
                 }
             }
         }
@@ -91,9 +97,12 @@ class SpecificOrderFragment : Fragment() {
 
         } else prescriptionDetails_imageView.visibility = View.GONE
 
-        pharmacy_name.text = body.pharmacyData.name
-        pharmacy_address.text = body.pharmacyData.locationAsAddress
-        order_date_tv.text = body.orderData.date.substring(0,10)
-        order_time_tv.text = body.orderData.date.substring(11,19)
+        pharmacy_name.text = "Pharmacy name: "+ body.pharmacyData.name
+        pharmacy_address.text =  "Pharmacy Address: "+ body.pharmacyData.locationAsAddress
+        order_date_tv.text = "Order Date: "+ body.orderData.date.substring(0,10)
+        order_time_tv.text = "Order Time: "+body.orderData.date.substring(11,19)
+        if (body.orderData.globalStatus == "accepted" ||
+            body.orderData.globalStatus =="notAccepted")
+            cancel_icon.visibility = View.VISIBLE
     }
 }

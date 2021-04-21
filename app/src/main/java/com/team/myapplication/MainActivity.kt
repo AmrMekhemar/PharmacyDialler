@@ -37,16 +37,19 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_history,
-                R.id.navigation_news,
-                R.id.navigation_more,
-                R.id.navigation_current,
-                R.id.navigation_pharmacy
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        /**
+         * following comment for setting up the nav controller with the action bar
+         */
+//        val appBarConfiguration = AppBarConfiguration(
+//            setOf(
+//                R.id.navigation_history,
+//                R.id.navigation_news,
+//                R.id.navigation_more,
+//                R.id.navigation_current,
+//                R.id.navigation_pharmacy
+//            )
+//        )
+////        setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
         viewModel.getLoginStatus().observe(this, Observer {
             when (it) {
