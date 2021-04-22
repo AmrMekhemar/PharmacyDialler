@@ -142,6 +142,7 @@ class RegisterFragment : Fragment(), OnMapReadyCallback {
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             REQUEST_LOCATION
         )
+
     }
 
     private fun getCurrentLocation() {
@@ -155,6 +156,7 @@ class RegisterFragment : Fragment(), OnMapReadyCallback {
             // 2
             requestLocationPermissions()
             getCurrentLocation()
+
         } else {
             // 3
             fusedLocationClient.lastLocation.addOnCompleteListener {
