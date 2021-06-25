@@ -19,6 +19,7 @@ import splitties.init.appCtx
 
 class MoreInfoFragment : Fragment() {
     private val infoItems = listOf(
+        MoreInfoItem(R.drawable.profile_icon, "Profile"),
         MoreInfoItem(R.drawable.settings, "Settings"),
         MoreInfoItem(R.drawable.phone, "Contact Us"),
         MoreInfoItem(R.drawable.info, "About Us"),
@@ -47,13 +48,19 @@ class MoreInfoFragment : Fragment() {
         moreInfo_rv.addItemDecoration(dividerItemDecoration)
         moreInfo_rv.adapter =
             MoreInfoAdapter(infoItems) {
-                if (it.text == "Logout") {
-                    appCtx.toast("Logged out")
-                    requireActivity().nav_view.visibility = View.INVISIBLE
-                    SharedPrefsManager(requireContext()).token = ""
-                    findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToLoginFragment())
-                }  else if (it.text == "About Us") {
-                    findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToAboutUsFragment())
+                when (it.text) {
+                    "Logout" -> {
+                        appCtx.toast("Logged out")
+                        requireActivity().nav_view.visibility = View.INVISIBLE
+                        SharedPrefsManager(requireContext()).token = ""
+                        findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToLoginFragment())
+                    }
+                    "About Us" -> {
+                        findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToAboutUsFragment())
+                    }
+                    "Profile" -> {
+                        findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToCustomerProfileFragment())
+                    }
                 }
 
             }

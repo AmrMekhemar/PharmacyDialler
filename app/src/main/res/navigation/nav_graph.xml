@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navigation_more_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_navigation_more_to_customerProfileFragment"
+            app:destination="@id/customerProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_news"
@@ -114,4 +117,9 @@
             android:id="@+id/action_specificOrderFragment_to_navigation_pharmacy"
             app:destination="@id/navigation_pharmacy" />
     </fragment>
+    <fragment
+        android:id="@+id/customerProfileFragment"
+        android:name="com.team.myapplication.customerProfile.CustomerProfileFragment"
+        android:label="fragment_customer_profile"
+        tools:layout="@layout/fragment_customer_profile" />
 </navigation>

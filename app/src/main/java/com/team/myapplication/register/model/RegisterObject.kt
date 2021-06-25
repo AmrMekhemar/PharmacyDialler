@@ -12,5 +12,3 @@ data class RegisterObject(
 	val birthDate: String,
 	val gender: String
 )
-
-

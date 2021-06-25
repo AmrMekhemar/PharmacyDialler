@@ -163,7 +163,7 @@ class RegisterFragment : Fragment(), OnMapReadyCallback {
                 val location = it.result
                 if (location != null) {
                     // 4
-                    val latLng = LatLng(location.latitude, location.longitude)
+//                    val latLng = LatLng(location.latitude, location.longitude)
                     coordinates = Coordinates(location.latitude, location.longitude)
                     toast("location has been picked")
                     // 5
