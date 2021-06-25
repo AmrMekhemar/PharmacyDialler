@@ -10,8 +10,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -46,6 +48,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
     private var coordinates: Coordinates? = null
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var v: View? = null
     private val networkStatusChecker: NetworkStatusChecker by inject()
     private val viewModel: CustomerProfileViewModel by viewModel()
     val token: String? by lazy {
@@ -53,8 +56,8 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             appCtx
         ).token
     }
-    val manipulatedToken = "aaa$token"
-    val string = ""
+    private val manipulatedToken = "aaabbb$token"
+    private var editString = "201222439770"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +74,6 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         Log.d(TAG, "token before object: $token")
         val chunks = token!!.split(".").toTypedArray()
         val decoder = Base64.getDecoder()
-//        val header = String(decoder.decode(chunks[0]))
         val payload = String(decoder.decode(chunks[1]))
         val profile = Gson().fromJson(payload, CustomerProfile::class.java)
         Log.d(TAG, "profile object: $profile")
@@ -86,14 +88,12 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
 
     private fun editAddress() {
         iv_editAddress.setOnClickListener {
-            getAlertDialog("Edit Address")
+            val builder = getAlertDialog("Edit Address")
                 .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
                     lifecycleScope.launch {
-                        token.let { it1 ->
-                            if (it1 != null) {
-                                viewModel.editCustomerAddress(it1, newStringET.text.toString())
-                            }
+                        manipulatedToken.let { it1 ->
+                            viewModel.editCustomerAddress(it1, editString)
                         }
                     }
                 }
@@ -107,13 +107,11 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
     private fun editPhone() {
         iv_editPhone.setOnClickListener {
             getAlertDialog("Edit Phone")
-                .setPositiveButton("Edit") { _, _ ->
+                .setPositiveButton("Edit") { dialog, id ->
+                    newStringET
                     appCtx.toast("Edited")
-                    val txt = newStringET.text.toString()
                     lifecycleScope.launch {
-                        if (manipulatedToken.length > 10)
-                            viewModel.editCustomerPhone(manipulatedToken, txt)
-                    }
+                         viewModel.editCustomerPhone(manipulatedToken, editString) }
                 }
                 .setNegativeButton("Cancel") { _, _ ->
                     appCtx.toast("canceled")
@@ -131,7 +129,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                         if (manipulatedToken.length > 10)
                             viewModel.editCustomerName(
                                 manipulatedToken,
-                                newStringET.text.toString()
+                                editString
                             )
                     }
                 }
@@ -165,11 +163,15 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         val builder: AlertDialog.Builder = activity.let {
             AlertDialog.Builder(it)
         }
+        val inflater = activity?.layoutInflater
+        v = inflater?.inflate(R.layout.edit_alert_dialog,null)
+        v?.findViewById<EditText>(R.id.newStringET)?.doOnTextChanged { text, start, before, count ->
+            editString = text.toString()
+        }
 // 2. Chain together various setter methods to set the dialog characteristics
         builder.setTitle(alert)
-            ?.setView(R.layout.edit_alert_dialog)
+            ?.setView(v)
 // 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
-        val dialog: AlertDialog? = builder.create()
         return builder
     }
 

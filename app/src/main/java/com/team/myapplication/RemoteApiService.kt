@@ -67,36 +67,36 @@ interface RemoteApiService {
     suspend fun editCustomerName(
         @Header("token") token: String,
         @Body name: String
-    ): Any
+    ): MessageResponse
 
 
     @POST("editCustomerPass")
     suspend fun editCustomerPassword(
         @Header("token") token: String,
         @Body editPasswordRequest: EditPasswordRequest
-    ): Any
+    ): MessageResponse
 
     @POST("editCustomerPhone")
     suspend fun editCustomerPhone(
         @Header("token") token: String,
         @Body phone: String
-    ): Any
+    ): MessageResponse
 
     @POST("editCustomerAddress")
     suspend fun editCustomerAddress(
         @Header("token") token: String,
         @Body address: String
-    ): Any
+    ): MessageResponse
 
     @POST("editCustomerCoordinates")
     suspend fun editCustomerCoordinates(
         @Header("token") token: String,
         @Body coordinates: Coordinates
-    ): Any
+    ): MessageResponse
 
     @POST("editCustomerPhoto")
     suspend fun editCustomerPhoto(
         @Header("token") token: String,
         @Body photo: String
-    )
+    ) :MessageResponse
 }

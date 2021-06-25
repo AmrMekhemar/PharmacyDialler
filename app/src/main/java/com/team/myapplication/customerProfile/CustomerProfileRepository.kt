@@ -1,6 +1,7 @@
 package com.team.myapplication.customerProfile
 
 import com.team.myapplication.EditPasswordRequest
+import com.team.myapplication.MessageResponse
 import com.team.myapplication.register.model.Coordinates
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -10,23 +11,23 @@ interface CustomerProfileRepository {
     suspend fun editCustomerName(
         token: String,
         name: String
-    ): Any
+    ): MessageResponse
 
     suspend fun editCustomerPassword(
         token: String,
         editPasswordRequest: EditPasswordRequest
-    ): Any
+    ): MessageResponse
 
     suspend fun editCustomerPhone(
         token: String,
         phone: String
-    ): Any
+    ): MessageResponse
 
     suspend fun editCustomerAddress(
         token: String,
         address: String
-    ): Any
+    ): MessageResponse
 
-    suspend fun editCustomerCoordinates(token: String, coordinates: Coordinates): Any
-    suspend fun editCustomerPhoto(token: String, encodedPhotoString: String)
+    suspend fun editCustomerCoordinates(token: String, coordinates: Coordinates): MessageResponse
+    suspend fun editCustomerPhoto(token: String, encodedPhotoString: String) : MessageResponse
 }
