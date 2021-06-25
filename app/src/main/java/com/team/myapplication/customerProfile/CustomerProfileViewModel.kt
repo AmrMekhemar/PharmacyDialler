@@ -6,27 +6,27 @@ import com.team.myapplication.register.model.Coordinates
 
 class CustomerProfileViewModel(private val repository: CustomerProfileRepository) :
     CustomerProfileRepository, ViewModel() {
-    override suspend fun editCustomerName(name: String): Any {
-        return repository.editCustomerName(name)
+    override suspend fun editCustomerName(token: String,name: String): Any {
+        return repository.editCustomerName(token,name)
     }
 
-    override suspend fun editCustomerPassword(editPasswordRequest: EditPasswordRequest): Any {
-        return repository.editCustomerPassword(editPasswordRequest)
+    override suspend fun editCustomerPassword(token: String,editPasswordRequest: EditPasswordRequest): Any {
+        return repository.editCustomerPassword(token,editPasswordRequest)
     }
 
-    override suspend fun editCustomerPhone(phone: String): Any {
-        return repository.editCustomerPhone(phone)
+    override suspend fun editCustomerPhone(token: String,phone: String): Any {
+        return repository.editCustomerPhone(token,phone)
     }
 
-    override suspend fun editCustomerAddress(address: String): Any {
-        return repository.editCustomerAddress(address)
+    override suspend fun editCustomerAddress(token: String,address: String): Any {
+        return repository.editCustomerAddress(token,address)
     }
 
-    override suspend fun editCustomerCoordinates(coordinates: Coordinates): Any {
-        return repository.editCustomerCoordinates(coordinates)
+    override suspend fun editCustomerCoordinates(token: String,coordinates: Coordinates): Any {
+        return repository.editCustomerCoordinates(token,coordinates)
     }
 
-    override suspend fun editCustomerPhoto(encodedPhotoString: String) {
-        return repository.editCustomerPhoto(encodedPhotoString)
+    override suspend fun editCustomerPhoto(token: String,encodedPhotoString: String) {
+        return repository.editCustomerPhoto(token,encodedPhotoString)
     }
 }

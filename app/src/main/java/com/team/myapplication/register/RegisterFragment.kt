@@ -41,7 +41,7 @@ class RegisterFragment : Fragment(), OnMapReadyCallback {
     private var coordinates: Coordinates? = null
     private lateinit var picker: DatePickerDialog
     companion object {
-        private const val REQUEST_LOCATION = 1
+        const val REQUEST_LOCATION = 1
         private const val TAG = "MapsFragment"
     }
     private lateinit var fusedLocationClient: FusedLocationProviderClient

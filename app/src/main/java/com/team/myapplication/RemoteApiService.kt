@@ -19,22 +19,27 @@ interface RemoteApiService {
 
     @GET("customerCurrentOrders")
     suspend fun getCurrentOrders(@Header("token") token: String): OrderHistoryResponse
+
     // Accepted or not accepted
     @GET("currentOrder/{orderId}")
     suspend fun getSpecificOrder(
         @Header("token") token: String,
         @Path("orderId") orderId: Any
     ): SpecificOrderResponse
+
     // Still Active
     @GET("customerCurrentOrders/{orderId}")
     suspend fun getSpecificActiveOrder(
         @Header("token") token: String,
         @Path("orderId") orderId: Any
     ): SpecificOrderResponse
+
     @POST("cancel")
-    suspend fun cancelOrder( @Header("token") token: String,
-                             @Body cancelRequest: CancelRequest
+    suspend fun cancelOrder(
+        @Header("token") token: String,
+        @Body cancelRequest: CancelRequest
     ): CancelResponse
+
     @POST("rate")
     suspend fun sendRate(@Body rateObject: RateRequest): Any
 
@@ -57,24 +62,41 @@ interface RemoteApiService {
     suspend fun getRegisteredPharmacies(@Body token: String): Any
 
 
-
     // Profile Edit
     @POST("editCustomerName")
-    suspend fun editCustomerName(@Body name: String): Any
+    suspend fun editCustomerName(
+        @Header("token") token: String,
+        @Body name: String
+    ): Any
 
 
     @POST("editCustomerPass")
-    suspend fun editCustomerPassword(@Body editPasswordRequest: EditPasswordRequest): Any
+    suspend fun editCustomerPassword(
+        @Header("token") token: String,
+        @Body editPasswordRequest: EditPasswordRequest
+    ): Any
 
     @POST("editCustomerPhone")
-    suspend fun editCustomerPhone(@Body phone: String): Any
+    suspend fun editCustomerPhone(
+        @Header("token") token: String,
+        @Body phone: String
+    ): Any
 
     @POST("editCustomerAddress")
-    suspend fun editCustomerAddress(@Body address: String): Any
+    suspend fun editCustomerAddress(
+        @Header("token") token: String,
+        @Body address: String
+    ): Any
 
     @POST("editCustomerCoordinates")
-    suspend fun editCustomerCoordinates(@Body coordinates: Coordinates): Any
+    suspend fun editCustomerCoordinates(
+        @Header("token") token: String,
+        @Body coordinates: Coordinates
+    ): Any
 
     @POST("editCustomerPhoto")
-    suspend fun editCustomerPhoto(@Body photo: String)
+    suspend fun editCustomerPhoto(
+        @Header("token") token: String,
+        @Body photo: String
+    )
 }
