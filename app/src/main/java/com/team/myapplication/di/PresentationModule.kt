@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.team.myapplication.NetworkStatusChecker
 import com.team.myapplication.activeOrders.ActiveOrdersRepositoryImpl
 import com.team.myapplication.activeOrders.ActiveOrdersViewModel
+import com.team.myapplication.customerProfile.CustomerProfileRepository
+import com.team.myapplication.customerProfile.CustomerProfileRepositoryImpl
+import com.team.myapplication.customerProfile.CustomerProfileViewModel
 import com.team.myapplication.login.LoginRepository
 import com.team.myapplication.login.LoginRepositoryImpl
 import com.team.myapplication.login.LoginViewModel
@@ -43,9 +46,11 @@ val presentationModule = module {
     single { LoginViewModel(get()) }
     single { RegisterViewModel(get()) }
     single { OrderViewModel(get()) }
+    single<CustomerProfileRepository> { CustomerProfileRepositoryImpl(get()) }
+    single { CustomerProfileViewModel(get()) }
     single { OrderHistoryImpl(get()) }
     single { SpecificOrderRepoImpl(get()) }
-    single{ SpecificOrderViewModel()}
+    single { SpecificOrderViewModel() }
     single { ActiveOrdersRepositoryImpl(get()) }
     single { ActiveOrdersViewModel() }
     single { OrderHistoryViewModel() }
