@@ -80,21 +80,6 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_registerFragment_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/mapsFragment"
-        android:name="com.team.myapplication.MapsFragment"
-        android:label="Pick a Location"
-        tools:layout="@layout/fragment_maps" >
-
-        <action
-            android:id="@+id/action_mapsFragment_to_registerFragment"
-            app:destination="@id/registerFragment" >
-
-        </action>
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
