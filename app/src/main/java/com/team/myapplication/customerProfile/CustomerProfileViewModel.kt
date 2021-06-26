@@ -1,13 +1,12 @@
 package com.team.myapplication.customerProfile
 
 import androidx.lifecycle.ViewModel
-import com.team.myapplication.EditPasswordRequest
-import com.team.myapplication.MessageResponse
+import com.team.myapplication.*
 import com.team.myapplication.register.model.Coordinates
 
 class CustomerProfileViewModel(private val repository: CustomerProfileRepository) :
     CustomerProfileRepository, ViewModel() {
-    override suspend fun editCustomerName(token: String,name: String): MessageResponse {
+    override suspend fun editCustomerName(token: String,name: NameDataClass): MessageResponse {
         return repository.editCustomerName(token,name)
     }
 
@@ -15,11 +14,11 @@ class CustomerProfileViewModel(private val repository: CustomerProfileRepository
         return repository.editCustomerPassword(token,editPasswordRequest)
     }
 
-    override suspend fun editCustomerPhone(token: String,phone: String): MessageResponse {
+    override suspend fun editCustomerPhone(token: String,phone: PhoneDataClass): MessageResponse {
         return repository.editCustomerPhone(token,phone)
     }
 
-    override suspend fun editCustomerAddress(token: String,address: String): MessageResponse {
+    override suspend fun editCustomerAddress(token: String,address: AddressDataClass): MessageResponse {
         return repository.editCustomerAddress(token,address)
     }
 

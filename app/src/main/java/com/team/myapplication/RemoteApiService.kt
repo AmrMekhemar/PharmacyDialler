@@ -66,7 +66,7 @@ interface RemoteApiService {
     @POST("editCustomerName")
     suspend fun editCustomerName(
         @Header("token") token: String,
-        @Body name: String
+        @Body name: NameDataClass
     ): MessageResponse
 
 
@@ -79,13 +79,13 @@ interface RemoteApiService {
     @POST("editCustomerPhone")
     suspend fun editCustomerPhone(
         @Header("token") token: String,
-        @Body phone: String
+        @Body phones:PhoneDataClass
     ): MessageResponse
 
     @POST("editCustomerAddress")
     suspend fun editCustomerAddress(
         @Header("token") token: String,
-        @Body address: String
+        @Body address: AddressDataClass
     ): MessageResponse
 
     @POST("editCustomerCoordinates")

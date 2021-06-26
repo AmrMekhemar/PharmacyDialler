@@ -1,5 +1,6 @@
 package com.team.myapplication.customerProfile
 
+import com.team.myapplication.NameDataClass
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -21,15 +22,14 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.gson.Gson
-import com.team.myapplication.NetworkStatusChecker
-import com.team.myapplication.R
-import com.team.myapplication.SharedPrefsManager
+import com.team.myapplication.*
 import com.team.myapplication.customerProfile.model.CustomerProfile
 import com.team.myapplication.register.RegisterFragment
 import com.team.myapplication.register.model.Coordinates
 import com.team.myapplication.toast
 import kotlinx.android.synthetic.main.edit_alert_dialog.*
 import kotlinx.android.synthetic.main.fragment_customer_profile.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -57,7 +57,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         ).token
     }
     private val manipulatedToken = "aaabbb$token"
-    private var editString = "201222439770"
+    private var editString = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,23 +77,21 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         val payload = String(decoder.decode(chunks[1]))
         val profile = Gson().fromJson(payload, CustomerProfile::class.java)
         Log.d(TAG, "profile object: $profile")
-
         initViews(profile)
         editAddress()
         editName()
         editPhone()
         editCoordinates()
-
     }
 
     private fun editAddress() {
         iv_editAddress.setOnClickListener {
-            val builder = getAlertDialog("Edit Address")
+            getAlertDialog("Edit Address")
                 .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
                     lifecycleScope.launch {
                         manipulatedToken.let { it1 ->
-                            viewModel.editCustomerAddress(it1, editString)
+                            viewModel.editCustomerAddress(it1, AddressDataClass(editString))
                         }
                     }
                 }
@@ -107,11 +105,16 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
     private fun editPhone() {
         iv_editPhone.setOnClickListener {
             getAlertDialog("Edit Phone")
-                .setPositiveButton("Edit") { dialog, id ->
-                    newStringET
+                .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
-                    lifecycleScope.launch {
-                         viewModel.editCustomerPhone(manipulatedToken, editString) }
+                    Log.d(TAG, "sent token: $manipulatedToken")
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        val body = viewModel.editCustomerPhone(
+                            manipulatedToken,
+                            PhoneDataClass(listOf(editString))
+                        )
+                        Log.d(TAG, "phone request return is: ${body.message}")
+                    }
                 }
                 .setNegativeButton("Cancel") { _, _ ->
                     appCtx.toast("canceled")
@@ -121,7 +124,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun editName() {
-        iv_editAddress.setOnClickListener {
+        iv_editName.setOnClickListener {
             getAlertDialog("Edit Name")
                 .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
@@ -129,7 +132,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                         if (manipulatedToken.length > 10)
                             viewModel.editCustomerName(
                                 manipulatedToken,
-                                editString
+                                NameDataClass(editString)
                             )
                     }
                 }
@@ -164,7 +167,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             AlertDialog.Builder(it)
         }
         val inflater = activity?.layoutInflater
-        v = inflater?.inflate(R.layout.edit_alert_dialog,null)
+        v = inflater?.inflate(R.layout.edit_alert_dialog, null)
         v?.findViewById<EditText>(R.id.newStringET)?.doOnTextChanged { text, start, before, count ->
             editString = text.toString()
         }

@@ -1,14 +1,12 @@
 package com.team.myapplication.customerProfile
 
-import com.team.myapplication.EditPasswordRequest
-import com.team.myapplication.MessageResponse
-import com.team.myapplication.RemoteApiService
+import com.team.myapplication.*
 import com.team.myapplication.register.model.Coordinates
 
 class CustomerProfileRepositoryImpl(private val apiService: RemoteApiService) :
     CustomerProfileRepository {
-    override suspend fun editCustomerName(token: String, name: String): MessageResponse {
-        return apiService.editCustomerAddress(token, name)
+    override suspend fun editCustomerName(token: String, name: NameDataClass): MessageResponse {
+        return apiService.editCustomerName(token, name)
     }
 
     override suspend fun editCustomerPassword(
@@ -18,11 +16,11 @@ class CustomerProfileRepositoryImpl(private val apiService: RemoteApiService) :
         return apiService.editCustomerPassword(token, editPasswordRequest)
     }
 
-    override suspend fun editCustomerPhone(token: String, phone: String): MessageResponse {
+    override suspend fun editCustomerPhone(token: String, phone: PhoneDataClass): MessageResponse {
         return apiService.editCustomerPhone(token, phone)
     }
 
-    override suspend fun editCustomerAddress(token: String, address: String): MessageResponse {
+    override suspend fun editCustomerAddress(token: String, address: AddressDataClass): MessageResponse {
         return apiService.editCustomerAddress(token, address)
     }
 

@@ -28,7 +28,6 @@ class ActiveOrdersFragment : Fragment() {
     val token: String by lazy {
         "aaabbb" + SharedPrefsManager(requireContext()).token
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,7 +63,6 @@ class ActiveOrdersFragment : Fragment() {
                     no_current_placeholder.visibility = View.VISIBLE
                     no_current_orders_TV.visibility = View.VISIBLE
                 }
-
         }
         }
     }
