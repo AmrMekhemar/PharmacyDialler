@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.widget.doOnTextChanged
@@ -47,7 +47,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import splitties.init.appCtx
 import splitties.toast.toast
 import java.io.ByteArrayOutputStream
-import java.security.spec.PSSParameterSpec.DEFAULT
 import java.util.*
 
 
@@ -80,6 +79,8 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
     }
     private val manipulatedToken = "aaabbb$token"
     private var editString = ""
+    private var passwordString = ""
+    private var confirmPasswordString = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -103,9 +104,62 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         editAddress()
         editName()
         editPhone()
-//        editPassword()
+        editPassword()
         editCoordinates()
         editProfilePic()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun editPassword() {
+        iv_editPassword.setOnClickListener {
+            val builder: AlertDialog.Builder = activity.let {
+                AlertDialog.Builder(it)
+            }
+            val inflater = activity?.layoutInflater
+            v = inflater?.inflate(R.layout.edit_password_alert_dialog, null)
+            v?.findViewById<EditText>(R.id.oldPasswordET)?.doOnTextChanged { text, start, before, count ->
+                editString = text.toString()
+                if (editString.length<8)
+                v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = "Wrong password"
+                else v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = ""
+
+            }
+            v?.findViewById<EditText>(R.id.editTextTextPassword)?.doOnTextChanged { text, start, before, count ->
+                passwordString = text.toString()
+                if (passwordString.length<8)
+                    v?.findViewById<TextView>(R.id.passwordErrorTV)?.
+                    text = "Your Password must be at least 8 characters"
+                else v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = ""
+            }
+            v?.findViewById<EditText>(R.id.editTextTextPasswordConfirm)?.doOnTextChanged { text, start, before, count ->
+                confirmPasswordString = text.toString()
+                when {
+                    confirmPasswordString.length<8 -> v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = "Your Password must be at least 8 characters"
+                    passwordString != confirmPasswordString -> v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = "Password and confirm password doesn't match"
+                    else -> v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = ""
+                }
+            }
+            builder.setTitle("Reset your Password")
+                ?.setView(v)
+            builder .setPositiveButton("Reset") { _, _ ->
+                    appCtx.toast("Edited")
+                    Log.d(TAG, "sent token: $manipulatedToken")
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        if (v?.findViewById<TextView>(R.id.passwordErrorTV)?.text ==""){
+                            val body = viewModel.editCustomerPassword(
+                                manipulatedToken,
+                                EditPasswordRequest(editString,passwordString,confirmPasswordString)
+                            )
+                            Log.d(TAG, "phone request return is: ${body.message}")
+                        }
+
+                    }
+                }
+                .setNegativeButton("Cancel") { _, _ ->
+                    appCtx.toast("canceled")
+                }
+                .show()
+        }
     }
 
     @SuppressLint("WrongConstant")
@@ -233,7 +287,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         }
         val inflater = activity?.layoutInflater
         v = inflater?.inflate(R.layout.edit_alert_dialog, null)
-        v?.findViewById<EditText>(R.id.newStringET)?.doOnTextChanged { text, start, before, count ->
+        v?.findViewById<EditText>(R.id.stringET)?.doOnTextChanged { text, start, before, count ->
             editString = text.toString()
         }
         builder.setTitle(alert)
