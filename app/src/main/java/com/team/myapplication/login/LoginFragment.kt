@@ -58,6 +58,7 @@ class LoginFragment : Fragment() {
                 progressImage.visibility = View.INVISIBLE
                 if (body.message == "success"){
                     SharedPrefsManager(requireContext()).token = body.token
+                    SharedPrefsManager(requireContext()).profilePhotoString = body.photo
                     findNavController().navigate(
                         LoginFragmentDirections.actionLoginFragmentToNavigationCurrent())
                 }

@@ -97,6 +97,6 @@ interface RemoteApiService {
     @POST("editCustomerPhoto")
     suspend fun editCustomerPhoto(
         @Header("token") token: String,
-        @Body photo: String
+        @Body photo : PhotoDataClass
     ) :MessageResponse
 }

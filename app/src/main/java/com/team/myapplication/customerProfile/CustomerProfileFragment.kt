@@ -1,17 +1,24 @@
 package com.team.myapplication.customerProfile
 
-import com.team.myapplication.NameDataClass
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.widget.doOnTextChanged
@@ -27,15 +34,22 @@ import com.team.myapplication.customerProfile.model.CustomerProfile
 import com.team.myapplication.register.RegisterFragment
 import com.team.myapplication.register.model.Coordinates
 import com.team.myapplication.toast
+import com.vansuita.pickimage.bundle.PickSetup
+import com.vansuita.pickimage.dialog.PickImageDialog
+import com.vansuita.pickimage.enums.EPickType
 import kotlinx.android.synthetic.main.edit_alert_dialog.*
 import kotlinx.android.synthetic.main.fragment_customer_profile.*
+import kotlinx.android.synthetic.main.fragment_order.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import splitties.init.appCtx
 import splitties.toast.toast
+import java.io.ByteArrayOutputStream
+import java.security.spec.PSSParameterSpec.DEFAULT
 import java.util.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -51,6 +65,14 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
     private var v: View? = null
     private val networkStatusChecker: NetworkStatusChecker by inject()
     private val viewModel: CustomerProfileViewModel by viewModel()
+    private val pickImage = 100
+    private val CAMERA_REQUEST = 1888
+    private val MY_CAMERA_PERMISSION_CODE = 100
+    private val photo: String? by lazy {
+        SharedPrefsManager(
+            appCtx
+        ).profilePhotoString
+    }
     val token: String? by lazy {
         SharedPrefsManager(
             appCtx
@@ -81,7 +103,47 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         editAddress()
         editName()
         editPhone()
+//        editPassword()
         editCoordinates()
+        editProfilePic()
+    }
+
+    @SuppressLint("WrongConstant")
+    private fun editProfilePic() {
+        iv_editProfilePic.setOnClickListener {
+            val setup = PickSetup()
+                .setTitle("Pick an image from")
+                .setTitleColor(Color.BLACK)
+                .setBackgroundColor(Color.WHITE)
+                .setCancelText("Cancel")
+                .setCancelTextColor(Color.BLACK)
+                .setButtonTextColor(Color.BLACK)
+                .setDimAmount(16f)
+                .setFlip(true).setMaxSize(60)
+                .setPickTypes(EPickType.GALLERY, EPickType.CAMERA)
+                .setCameraButtonText("Camera")
+                .setGalleryButtonText("Gallery")
+                .setIconGravity(Gravity.START)
+                .setButtonOrientation(LinearLayout.HORIZONTAL)
+                .setSystemDialog(false)
+                .setGalleryIcon(R.drawable.gallery)
+                .setCameraIcon(R.drawable.camera)
+                .setGalleryChooserTitle("Gallery")
+                .setCameraChooserTitle("Camera")
+            PickImageDialog.build(setup)
+                .setOnPickResult {
+                    iv_image.setImageBitmap(it.bitmap)
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        getBase64String(it.bitmap)?.let { imageString -> PhotoDataClass(imageString) }
+                            ?.let { photoDataClassObject ->
+                                viewModel.editCustomerPhoto(
+                                    manipulatedToken,
+                                    photoDataClassObject
+                                )
+                            }
+                    }
+                }.show(activity)
+        }
     }
 
     private fun editAddress() {
@@ -150,6 +212,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     private fun initViews(profile: CustomerProfile) {
         tv_email.text = profile.email
@@ -159,10 +222,12 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                 "${profile.locationAsCoordinates.coordinates.lon}"
         tv_age.text = profile.age.toString()
         tv_phone.text = profile.phone
+        if (!photo.isNullOrBlank()) {
+            iv_image.setImageBitmap(convertToBitmap(photo!!))
+        }
     }
 
     private fun getAlertDialog(alert: String): AlertDialog.Builder {
-        // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
         val builder: AlertDialog.Builder = activity.let {
             AlertDialog.Builder(it)
         }
@@ -171,10 +236,8 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         v?.findViewById<EditText>(R.id.newStringET)?.doOnTextChanged { text, start, before, count ->
             editString = text.toString()
         }
-// 2. Chain together various setter methods to set the dialog characteristics
         builder.setTitle(alert)
             ?.setView(v)
-// 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
         return builder
     }
 
@@ -199,24 +262,19 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun getCurrentLocation() {
-        // 1
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) !=
             PackageManager.PERMISSION_GRANTED
         ) {
-            // 2
             requestLocationPermissions()
             getCurrentLocation()
 
         } else {
-            // 3
             fusedLocationClient.lastLocation.addOnCompleteListener {
                 val location = it.result
                 if (location != null) {
-                    // 4
-//                    val latLng = LatLng(location.latitude, location.longitude)
                     coordinates = Coordinates(location.latitude, location.longitude)
                     toast("location has been edited")
                     if (coordinates != null)
@@ -224,15 +282,6 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                             if (manipulatedToken.length > 10)
                                 viewModel.editCustomerCoordinates(manipulatedToken, coordinates!!)
                         }
-                    // 5
-//                    map.addMarker(
-//                        MarkerOptions().position(latLng)
-//                            .title("You are here!")
-//                    )
-                    // 6
-//                    val update = CameraUpdateFactory.newLatLngZoom(latLng, 16.0f)
-                    // 7
-                    //        map.moveCamera(update)
                 } else {
                     requireContext().toast("Can't get your location,check that gps is enabled")
                     Log.e(TAG, "No location found")
@@ -255,5 +304,29 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                 Log.e(TAG, "Location permission denied")
             }
         }
+
+        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                appCtx.toast("camera permission granted")
+                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                startActivityForResult(cameraIntent, CAMERA_REQUEST)
+            } else {
+                appCtx.toast("camera permission denied")
+            }
+        }
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun convertToBitmap(image: String): Bitmap {
+        val decodedString: ByteArray = Base64.getMimeDecoder().decode(image)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+    }
+
+    private fun getBase64String(bitmap: Bitmap): String? {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
+        return android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT)
     }
 }

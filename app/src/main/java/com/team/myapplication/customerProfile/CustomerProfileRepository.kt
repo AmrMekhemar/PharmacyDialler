@@ -25,5 +25,5 @@ interface CustomerProfileRepository {
     ): MessageResponse
 
     suspend fun editCustomerCoordinates(token: String, coordinates: Coordinates): MessageResponse
-    suspend fun editCustomerPhoto(token: String, encodedPhotoString: String) : MessageResponse
+    suspend fun editCustomerPhoto(token: String, photo : PhotoDataClass) : MessageResponse
 }

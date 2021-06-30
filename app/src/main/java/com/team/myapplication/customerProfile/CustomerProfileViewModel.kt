@@ -26,7 +26,7 @@ class CustomerProfileViewModel(private val repository: CustomerProfileRepository
         return repository.editCustomerCoordinates(token,coordinates)
     }
 
-    override suspend fun editCustomerPhoto(token: String,encodedPhotoString: String):MessageResponse {
-        return repository.editCustomerPhoto(token,encodedPhotoString)
+    override suspend fun editCustomerPhoto(token: String,photo : PhotoDataClass):MessageResponse {
+        return repository.editCustomerPhoto(token,photo )
     }
 }

@@ -28,7 +28,7 @@ class CustomerProfileRepositoryImpl(private val apiService: RemoteApiService) :
         return apiService.editCustomerCoordinates(token, coordinates)
     }
 
-    override suspend fun editCustomerPhoto(token: String, encodedPhotoString: String):MessageResponse {
-        return apiService.editCustomerPhoto(token, encodedPhotoString)
+    override suspend fun editCustomerPhoto(token: String, photo : PhotoDataClass):MessageResponse {
+        return apiService.editCustomerPhoto(token, photo)
     }
 }
