@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.team.myapplication.R
 import com.team.myapplication.SharedPrefsManager
 import com.team.myapplication.ordersHistory.OrdersAdapter
@@ -25,6 +26,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ActiveOrdersFragment : Fragment() {
     private val TAG = "ActiveOrdersFragment"
     private val viewModel: ActiveOrdersViewModel by viewModel()
+    private var active_ordersRV : RecyclerView? = null
     val token: String by lazy {
         "aaabbb" + SharedPrefsManager(requireContext()).token
     }
@@ -38,6 +40,7 @@ class ActiveOrdersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        active_ordersRV = view.findViewById(R.id.active_ordersRV)
         requireActivity().nav_view.visibility = View.VISIBLE
     }
 
@@ -49,8 +52,8 @@ class ActiveOrdersFragment : Fragment() {
             Log.d(TAG, "active orders: ${body.customerOrders}")
             withContext(Dispatchers.Main) {
                 val layoutManager by inject<LinearLayoutManager>()
-                active_ordersRV.layoutManager = layoutManager
-                active_ordersRV.adapter = body.customerOrders?.let {
+                active_ordersRV?.layoutManager = layoutManager
+                active_ordersRV?.adapter = body.customerOrders?.let {
                     OrdersAdapter(it) {
                         findNavController().navigate(
                             ActiveOrdersFragmentDirections.actionNavigationCurrentToSpecificOrderFragment(

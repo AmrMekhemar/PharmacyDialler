@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.team.myapplication.R
 import com.team.myapplication.SharedPrefsManager
 import com.team.myapplication.news.model.news.MoreInfoItem
@@ -20,12 +21,11 @@ import splitties.init.appCtx
 class MoreInfoFragment : Fragment() {
     private val infoItems = listOf(
         MoreInfoItem(R.drawable.profile_icon, "Profile"),
-        MoreInfoItem(R.drawable.settings, "Settings"),
         MoreInfoItem(R.drawable.phone, "Contact Us"),
         MoreInfoItem(R.drawable.info, "About Us"),
         MoreInfoItem(R.drawable.logout, "Logout")
     )
-
+   private var moreInfo_rv : RecyclerView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,15 +38,16 @@ class MoreInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().nav_view.visibility = View.VISIBLE
+        moreInfo_rv = view.findViewById(R.id.moreInfo_rv)
         val layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        moreInfo_rv.layoutManager = layoutManager
+        moreInfo_rv?.layoutManager = layoutManager
         val dividerItemDecoration = DividerItemDecoration(
-            moreInfo_rv.context,
+            moreInfo_rv?.context,
             layoutManager.orientation
         )
-        moreInfo_rv.addItemDecoration(dividerItemDecoration)
-        moreInfo_rv.adapter =
+        moreInfo_rv?.addItemDecoration(dividerItemDecoration)
+        moreInfo_rv?.adapter =
             MoreInfoAdapter(infoItems) {
                 when (it.text) {
                     "Logout" -> {

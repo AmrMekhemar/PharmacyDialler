@@ -2,10 +2,10 @@ package com.team.myapplication.ordersHistory
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.team.myapplication.R
 import com.team.myapplication.SharedPrefsManager
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_active_orders.*
 import kotlinx.android.synthetic.main.fragment_history.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +27,7 @@ class OrdersHistoryFragment : Fragment() {
     val orderHistoryViewModel by lazy {
         ViewModelProviders.of(this).get(OrderHistoryViewModel::class.java)
     }
+    private var pharmacyOrders_rv : RecyclerView? = null
     val token: String? by lazy {
         "aaabbb" + SharedPrefsManager(
             appCtx
@@ -44,6 +44,7 @@ class OrdersHistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pharmacyOrders_rv = view.findViewById(R.id.pharmacyOrders_rv)
         requireActivity().nav_view.visibility = View.VISIBLE
     }
 
@@ -59,8 +60,8 @@ class OrdersHistoryFragment : Fragment() {
                 if (body != null) {
                     if (body.customerOrders != null) {
                         val layoutManager by inject<LinearLayoutManager>()
-                        pharmacyOrders_rv.layoutManager = layoutManager
-                        pharmacyOrders_rv.adapter = body.customerOrders?.let {
+                        pharmacyOrders_rv?.layoutManager = layoutManager
+                        pharmacyOrders_rv?.adapter = body.customerOrders?.let {
                             OrdersAdapter(it) {
                                 findNavController().navigate(
                                     OrdersHistoryFragmentDirections.actionNavigationHistoryToSpecificOrderFragment(
