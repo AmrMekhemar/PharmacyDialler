@@ -88,8 +88,8 @@ class SpecificOrderFragment : Fragment() {
         else PrescriptionDetails_tv.visibility = View.GONE
         if (body.orderData.orderByPhoto != null) {
             val decodedString: ByteArray =
-                Base64.decode(body.orderData.orderByPhoto, Base64.DEFAULT)
-             decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                Base64.decode(body.orderData.orderByPhoto, Base64.DEFAULT or Base64.NO_WRAP)
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             prescriptionDetails_imageView.setImageBitmap(decodedByte)
             prescriptionDetails_imageView.visibility = View.VISIBLE
 

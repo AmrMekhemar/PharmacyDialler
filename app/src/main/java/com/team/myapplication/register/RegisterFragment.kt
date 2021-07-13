@@ -102,7 +102,7 @@ class RegisterFragment : Fragment(), OnMapReadyCallback {
                         emailET.text.toString(),
                         passwordET.text.toString(),
                         confirmPasswordET.text.toString(),
-                        mutableListOf(phoneNumberET.text.toString()),
+                        phoneNumberET.text.toString(),
                         addressET.text.toString(),
                         LocationAsCoordinates(coordinates = coordinates!!),
                         birthDateET.text.toString(),
@@ -111,7 +111,7 @@ class RegisterFragment : Fragment(), OnMapReadyCallback {
                     val body = viewModel.register(registerObject)
                     Log.d(TAG, "body= $body")
                     when (body.message) {
-                        "success" -> {
+                        "Success" -> {
                             findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
                         }
                         else -> {
