@@ -61,6 +61,9 @@ class MoreInfoFragment : Fragment() {
                     "Profile" -> {
                         findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToCustomerProfileFragment())
                     }
+                    "Contact Us" -> {
+                        findNavController().navigate(MoreInfoFragmentDirections.actionNavigationMoreToContactUsFragment())
+                    }
                 }
 
             }
