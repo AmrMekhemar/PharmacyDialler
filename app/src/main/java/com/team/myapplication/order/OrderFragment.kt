@@ -139,6 +139,7 @@ class OrderFragment : Fragment() {
                 val bitmap = convertToBitmap(selectedPhotoUri)
                 photo = bitmap?.let { getBase64String(it) }
                 adImageView.setImageBitmap(bitmap)
+
             }
 
         }

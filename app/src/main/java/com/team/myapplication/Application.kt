@@ -10,7 +10,7 @@ import java.util.logging.Level
 
 class Application : Application() {
     companion object {
-        val BASE_URL = "http://192.168.1.9:3000/"
+        val BASE_URL = "http://192.168.1.6:3000/"
     }
     override fun onCreate() {
         super.onCreate()
