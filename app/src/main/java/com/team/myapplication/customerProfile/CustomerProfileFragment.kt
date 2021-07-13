@@ -118,49 +118,62 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             }
             val inflater = activity?.layoutInflater
             v = inflater?.inflate(R.layout.edit_password_alert_dialog, null)
-            v?.findViewById<EditText>(R.id.oldPasswordET)?.doOnTextChanged { text, start, before, count ->
-                editString = text.toString()
-                if (editString.length<8)
-                v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = "Wrong password"
-                else v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = ""
+            v?.findViewById<EditText>(R.id.oldPasswordET)
+                ?.doOnTextChanged { text, start, before, count ->
+                    editString = text.toString()
+                    if (editString.length < 8)
+                        v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = "Wrong password"
+                    else v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = ""
 
-            }
-            v?.findViewById<EditText>(R.id.editTextTextPassword)?.doOnTextChanged { text, start, before, count ->
-                passwordString = text.toString()
-                if (passwordString.length<8)
-                    v?.findViewById<TextView>(R.id.passwordErrorTV)?.
-                    text = "Your Password must be at least 8 characters"
-                else v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = ""
-            }
-            v?.findViewById<EditText>(R.id.editTextTextPasswordConfirm)?.doOnTextChanged { text, start, before, count ->
-                confirmPasswordString = text.toString()
-                when {
-                    confirmPasswordString.length<8 -> v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = "Your Password must be at least 8 characters"
-                    passwordString != confirmPasswordString -> v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = "Password and confirm password doesn't match"
-                    else -> v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = ""
                 }
-            }
-            builder.setTitle("Reset your Password")
-                ?.setView(v)
-            builder .setPositiveButton("Reset") { _, _ ->
-                    appCtx.toast("Edited")
-
-                Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
-                    Log.d(TAG, "sent token: $manipulatedToken")
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        if (v?.findViewById<TextView>(R.id.passwordErrorTV)?.text ==""){
-
-                         //   val body =
-                                viewModel.editCustomerPassword(
-                                manipulatedToken,
-                                EditPasswordRequest(editString,passwordString,confirmPasswordString)
-                            )
-                        //    Log.d(TAG, "phone request return is: ${body.message}")
-                            Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
-                        }
-
+            v?.findViewById<EditText>(R.id.editTextTextPassword)
+                ?.doOnTextChanged { text, start, before, count ->
+                    passwordString = text.toString()
+                    if (passwordString.length < 8)
+                        v?.findViewById<TextView>(R.id.passwordErrorTV)?.text =
+                            "Your Password must be at least 8 characters"
+                    else v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = ""
+                }
+            v?.findViewById<EditText>(R.id.editTextTextPasswordConfirm)
+                ?.doOnTextChanged { text, start, before, count ->
+                    confirmPasswordString = text.toString()
+                    when {
+                        confirmPasswordString.length < 8 -> v?.findViewById<TextView>(R.id.passwordErrorTV)?.text =
+                            "Your Password must be at least 8 characters"
+                        passwordString != confirmPasswordString -> v?.findViewById<TextView>(R.id.passwordErrorTV)?.text =
+                            "Password and confirm password doesn't match"
+                        else -> v?.findViewById<TextView>(R.id.passwordErrorTV)?.text = ""
                     }
                 }
+            builder.setTitle("Reset your Password")
+                ?.setView(v)
+            builder.setPositiveButton("Reset") { _, _ ->
+                appCtx.toast("Edited")
+
+                Snackbar.make(
+                    requireView(),
+                    "Changes won't take effect until re-login",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                Log.d(TAG, "sent token: $manipulatedToken")
+                lifecycleScope.launch(Dispatchers.Main) {
+                    if (v?.findViewById<TextView>(R.id.passwordErrorTV)?.text == "") {
+
+                        //   val body =
+                        viewModel.editCustomerPassword(
+                            manipulatedToken,
+                            EditPasswordRequest(editString, passwordString, confirmPasswordString)
+                        )
+                        //    Log.d(TAG, "phone request return is: ${body.message}")
+                        Snackbar.make(
+                            requireView(),
+                            "Changes won't take effect until re-login",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+
+                }
+            }
                 .setNegativeButton("Cancel") { _, _ ->
                     appCtx.toast("canceled")
                 }
@@ -193,7 +206,11 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             PickImageDialog.build(setup)
                 .setOnPickResult {
                     iv_image.setImageBitmap(it.bitmap)
-                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireView(),
+                        "Changes won't take effect until re-login",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     lifecycleScope.launch(Dispatchers.IO) {
                         getBase64String(it.bitmap)?.let { imageString -> PhotoDataClass(imageString) }
                             ?.let { photoDataClassObject ->
@@ -213,7 +230,11 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             getAlertDialog("Edit Address")
                 .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
-                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireView(),
+                        "Changes won't take effect until re-login",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     lifecycleScope.launch {
                         manipulatedToken.let { it1 ->
                             viewModel.editCustomerAddress(it1, AddressDataClass(editString))
@@ -232,7 +253,11 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             getAlertDialog("Edit Phone")
                 .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
-                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireView(),
+                        "Changes won't take effect until re-login",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     Log.d(TAG, "sent token: $manipulatedToken")
                     lifecycleScope.launch(Dispatchers.Main) {
                         val body = viewModel.editCustomerPhone(
@@ -254,7 +279,11 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             getAlertDialog("Edit Name")
                 .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
-                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireView(),
+                        "Changes won't take effect until re-login",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     lifecycleScope.launch {
                         if (manipulatedToken.length > 10)
                             viewModel.editCustomerName(
@@ -288,7 +317,13 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         tv_age.text = profile.age.toString()
         tv_phone.text = profile.phone
         if (!photo.isNullOrBlank()) {
-           val bit =  convertToBitmap(photo!!)
+            var mPhoto = ""
+            if (photo!!.contains("data:image/jpeg;base64")) {
+                mPhoto = photo!!.removePrefix("data:image/jpeg;base64")
+            } else if (photo!!.contains("data:image/png;base64")) {
+                mPhoto = photo!!.removePrefix("data:image/png;base64")
+            }
+            val bit = convertToBitmap(mPhoto!!)
             bit.let {
                 iv_image.setImageBitmap(it)
             }
@@ -346,7 +381,11 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                 if (location != null) {
                     coordinates = Coordinates(location.latitude, location.longitude)
                     toast("location has been edited")
-                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        requireView(),
+                        "Changes won't take effect until re-login",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     if (coordinates != null)
                         lifecycleScope.launch {
                             if (manipulatedToken.length > 10)

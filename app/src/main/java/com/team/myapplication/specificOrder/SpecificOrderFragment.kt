@@ -31,7 +31,7 @@ class SpecificOrderFragment : Fragment() {
             appCtx
         ).token
     }
-     private var  decodedByte : Bitmap? = null
+    private var decodedByte: Bitmap? = null
     private val viewModel: SpecificOrderViewModel by viewModel()
     private lateinit var args: SpecificOrderFragmentArgs
     override fun onCreateView(
@@ -57,19 +57,24 @@ class SpecificOrderFragment : Fragment() {
         }
         cancel_icon.setOnClickListener {
             lifecycleScope.launch {
-               val body= token?.let { it1 -> viewModel.cancelOrder(it1,
-                   CancelRequest(args.orderId)
+                val body = token?.let { it1 ->
+                    viewModel.cancelOrder(
+                        it1,
+                        CancelRequest(args.orderId)
 
-               ) }
-                findNavController().navigate(SpecificOrderFragmentDirections
-                    .actionSpecificOrderFragmentToNavigationPharmacy())
+                    )
+                }
+                findNavController().navigate(
+                    SpecificOrderFragmentDirections
+                        .actionSpecificOrderFragmentToNavigationPharmacy()
+                )
                 if (body?.message != null) {
                     Log.d(TAG, body.message)
                     toast(body.message)
                 }
             }
         }
-        Log.d(TAG,"order id : ${args.orderId}")
+        Log.d(TAG, "order id : ${args.orderId}")
         lifecycleScope.launch {
             val body = token?.let { viewModel.getSpecificOrder(it, args.orderId) }
             Log.d(TAG, "specific order is: $body")
@@ -83,27 +88,35 @@ class SpecificOrderFragment : Fragment() {
     }
 
     private fun populateUI(body: SpecificOrderResponse) {
-        if (body.orderData.orderByTexting != null){
+        if (body.orderData.orderByTexting != null) {
             PrescriptionDetails_tv.text = body.orderData.orderByTexting
-        }
-        else PrescriptionDetails_tv.visibility = View.GONE
+        } else PrescriptionDetails_tv.visibility = View.GONE
         if (body.orderData.orderByPhoto != null) {
+            var photo = body.orderData.orderByPhoto
+            // data:image/jpeg;base64,
+            if (photo.contains("data:image/jpeg;base64")) {
+                photo = photo.removePrefix("data:image/jpeg;base64")
+            } else if (photo.contains("data:image/png;base64")) {
+                photo = photo.removePrefix("data:image/png;base64")
+            }
+            Log.d(TAG, "photo is ${body.orderData.orderByPhoto}")
 
             val decodedString: ByteArray =
-                Base64.decode(body.orderData.orderByPhoto, Base64.DEFAULT or Base64.NO_WRAP)
-            decodedByte  = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+                Base64.decode(photo, Base64.DEFAULT or Base64.NO_WRAP)
+            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             decodedString.let {
                 prescriptionDetails_imageView.setImageBitmap(decodedByte)
                 prescriptionDetails_imageView.visibility = View.VISIBLE
             }
         } else prescriptionDetails_imageView.visibility = View.GONE
 
-        pharmacy_name.text = "Pharmacy name: "+ body.pharmacyData.name
-        pharmacy_address.text =  "Pharmacy Address: "+ body.pharmacyData.locationAsAddress
-        order_date_tv.text = "Order Date: "+ body.orderData.date.substring(0,10)
-        order_time_tv.text = "Order Time: "+body.orderData.date.substring(11,19)
+        pharmacy_name.text = "Pharmacy name: " + body.pharmacyData.name
+        pharmacy_address.text = "Pharmacy Address: " + body.pharmacyData.locationAsAddress
+        order_date_tv.text = "Order Date: " + body.orderData.date.substring(0, 10)
+        order_time_tv.text = "Order Time: " + body.orderData.date.substring(11, 19)
         if (body.orderData.globalStatus == "accepted" ||
-            body.orderData.globalStatus =="notAccepted")
+            body.orderData.globalStatus == "notAccepted"
+        )
             cancel_icon.visibility = View.VISIBLE
     }
 }
