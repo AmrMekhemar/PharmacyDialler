@@ -31,7 +31,7 @@ class SpecificOrderFragment : Fragment() {
             appCtx
         ).token
     }
-    lateinit var  decodedByte : Bitmap
+     private var  decodedByte : Bitmap? = null
     private val viewModel: SpecificOrderViewModel by viewModel()
     private lateinit var args: SpecificOrderFragmentArgs
     override fun onCreateView(
@@ -69,6 +69,7 @@ class SpecificOrderFragment : Fragment() {
                 }
             }
         }
+        Log.d(TAG,"order id : ${args.orderId}")
         lifecycleScope.launch {
             val body = token?.let { viewModel.getSpecificOrder(it, args.orderId) }
             Log.d(TAG, "specific order is: $body")
@@ -87,12 +88,14 @@ class SpecificOrderFragment : Fragment() {
         }
         else PrescriptionDetails_tv.visibility = View.GONE
         if (body.orderData.orderByPhoto != null) {
+
             val decodedString: ByteArray =
                 Base64.decode(body.orderData.orderByPhoto, Base64.DEFAULT or Base64.NO_WRAP)
-            decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-            prescriptionDetails_imageView.setImageBitmap(decodedByte)
-            prescriptionDetails_imageView.visibility = View.VISIBLE
-
+            decodedByte  = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+            decodedString.let {
+                prescriptionDetails_imageView.setImageBitmap(decodedByte)
+                prescriptionDetails_imageView.visibility = View.VISIBLE
+            }
         } else prescriptionDetails_imageView.visibility = View.GONE
 
         pharmacy_name.text = "Pharmacy name: "+ body.pharmacyData.name

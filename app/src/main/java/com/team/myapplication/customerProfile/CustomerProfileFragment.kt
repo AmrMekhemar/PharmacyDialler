@@ -288,7 +288,11 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
         tv_age.text = profile.age.toString()
         tv_phone.text = profile.phone
         if (!photo.isNullOrBlank()) {
-            iv_image.setImageBitmap(convertToBitmap(photo!!))
+           val bit =  convertToBitmap(photo!!)
+            bit.let {
+                iv_image.setImageBitmap(it)
+            }
+
         }
     }
 
@@ -384,7 +388,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun convertToBitmap(image: String): Bitmap {
+    private fun convertToBitmap(image: String): Bitmap? {
         val decodedString: ByteArray = Base64.getMimeDecoder().decode(image)
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
