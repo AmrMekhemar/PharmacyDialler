@@ -61,10 +61,11 @@ class OrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().nav_view.visibility = View.VISIBLE
         val title = "Order"
-        activity?.actionBar?.title   = title
+        activity?.actionBar?.title = title
         val token = "aaabbb$token"
         Log.d(TAG, token)
         orderBtn.setOnClickListener {
+            Log.d(TAG,"photo when sending order : $photo")
             val nearestPharmacyRequest = NearestPharmacyRequest(
                 orderByTexting = orderET.text.toString(),
                 orderByPhoto = photo
@@ -138,16 +139,19 @@ class OrderFragment : Fragment() {
             if (selectedPhotoUri != null) {
                 val bitmap = convertToBitmap(selectedPhotoUri)
                 val targetBmp: Bitmap? = bitmap?.copy(Bitmap.Config.ARGB_8888, false)
-                photo = targetBmp?.let { getBase64String(it) }
                 adImageView.setImageBitmap(targetBmp)
+                photo = "data:image/jpeg;base64," + targetBmp?.let { getBase64String(it) }
+
 
             }
 
         }
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             val selectedPhotoUri = data?.extras!!["data"] as Bitmap
-            photo = getBase64String(selectedPhotoUri)
             adImageView.setImageBitmap(selectedPhotoUri)
+            Log.d(TAG,"photo before adding: ${getBase64String(selectedPhotoUri)}")
+            photo = "data:image/jpeg;base64," + getBase64String(selectedPhotoUri)
+            Log.d(TAG,"photo before adding: $photo")
         }
     }
 

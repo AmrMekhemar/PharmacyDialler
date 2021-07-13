@@ -212,8 +212,9 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                         Snackbar.LENGTH_SHORT
                     ).show()
                     lifecycleScope.launch(Dispatchers.IO) {
-                        getBase64String(it.bitmap)?.let { imageString -> PhotoDataClass(imageString) }
-                            ?.let { photoDataClassObject ->
+                        val photo = "data:image/png;base64," + getBase64String(it.bitmap)
+                        PhotoDataClass(photo)
+                            .let { photoDataClassObject ->
                                 viewModel.editCustomerPhoto(
                                     manipulatedToken,
                                     photoDataClassObject
