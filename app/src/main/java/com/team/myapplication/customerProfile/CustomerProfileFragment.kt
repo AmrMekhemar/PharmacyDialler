@@ -28,6 +28,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.team.myapplication.*
 import com.team.myapplication.customerProfile.model.CustomerProfile
@@ -143,14 +144,19 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                 ?.setView(v)
             builder .setPositiveButton("Reset") { _, _ ->
                     appCtx.toast("Edited")
+
+                Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
                     Log.d(TAG, "sent token: $manipulatedToken")
                     lifecycleScope.launch(Dispatchers.Main) {
                         if (v?.findViewById<TextView>(R.id.passwordErrorTV)?.text ==""){
-                            val body = viewModel.editCustomerPassword(
+
+                         //   val body =
+                                viewModel.editCustomerPassword(
                                 manipulatedToken,
                                 EditPasswordRequest(editString,passwordString,confirmPasswordString)
                             )
-                            Log.d(TAG, "phone request return is: ${body.message}")
+                        //    Log.d(TAG, "phone request return is: ${body.message}")
+                            Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
                         }
 
                     }
@@ -187,6 +193,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             PickImageDialog.build(setup)
                 .setOnPickResult {
                     iv_image.setImageBitmap(it.bitmap)
+                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
                     lifecycleScope.launch(Dispatchers.IO) {
                         getBase64String(it.bitmap)?.let { imageString -> PhotoDataClass(imageString) }
                             ?.let { photoDataClassObject ->
@@ -198,6 +205,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                     }
                 }.show(activity)
         }
+
     }
 
     private fun editAddress() {
@@ -205,6 +213,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             getAlertDialog("Edit Address")
                 .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
+                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
                     lifecycleScope.launch {
                         manipulatedToken.let { it1 ->
                             viewModel.editCustomerAddress(it1, AddressDataClass(editString))
@@ -223,6 +232,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             getAlertDialog("Edit Phone")
                 .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
+                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
                     Log.d(TAG, "sent token: $manipulatedToken")
                     lifecycleScope.launch(Dispatchers.Main) {
                         val body = viewModel.editCustomerPhone(
@@ -244,6 +254,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
             getAlertDialog("Edit Name")
                 .setPositiveButton("Edit") { _, _ ->
                     appCtx.toast("Edited")
+                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
                     lifecycleScope.launch {
                         if (manipulatedToken.length > 10)
                             viewModel.editCustomerName(
@@ -331,6 +342,7 @@ class CustomerProfileFragment : Fragment(), OnMapReadyCallback {
                 if (location != null) {
                     coordinates = Coordinates(location.latitude, location.longitude)
                     toast("location has been edited")
+                    Snackbar.make(requireView(),"Changes won't take effect until re-login",Snackbar.LENGTH_SHORT).show()
                     if (coordinates != null)
                         lifecycleScope.launch {
                             if (manipulatedToken.length > 10)

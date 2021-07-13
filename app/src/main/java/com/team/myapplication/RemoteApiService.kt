@@ -74,7 +74,7 @@ interface RemoteApiService {
     suspend fun editCustomerPassword(
         @Header("token") token: String,
         @Body editPasswordRequest: EditPasswordRequest
-    ): MessageResponse
+    ): Any
 
     @POST("editCustomerPhone")
     suspend fun editCustomerPhone(

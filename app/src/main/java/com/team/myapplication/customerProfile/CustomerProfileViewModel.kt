@@ -10,7 +10,7 @@ class CustomerProfileViewModel(private val repository: CustomerProfileRepository
         return repository.editCustomerName(token,name)
     }
 
-    override suspend fun editCustomerPassword(token: String,editPasswordRequest: EditPasswordRequest): MessageResponse {
+    override suspend fun editCustomerPassword(token: String,editPasswordRequest: EditPasswordRequest): Any {
         return repository.editCustomerPassword(token,editPasswordRequest)
     }
 

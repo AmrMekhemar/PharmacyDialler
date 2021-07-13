@@ -12,7 +12,7 @@ interface CustomerProfileRepository {
     suspend fun editCustomerPassword(
         token: String,
         editPasswordRequest: EditPasswordRequest
-    ): MessageResponse
+    ): Any
 
     suspend fun editCustomerPhone(
         token: String,

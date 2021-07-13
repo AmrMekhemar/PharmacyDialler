@@ -12,7 +12,7 @@ class CustomerProfileRepositoryImpl(private val apiService: RemoteApiService) :
     override suspend fun editCustomerPassword(
         token: String,
         editPasswordRequest: EditPasswordRequest
-    ): MessageResponse {
+    ): Any {
         return apiService.editCustomerPassword(token, editPasswordRequest)
     }
 
