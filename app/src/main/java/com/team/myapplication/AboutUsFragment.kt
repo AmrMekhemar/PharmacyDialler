@@ -29,6 +29,12 @@ class AboutUsFragment : Fragment() {
         getHelpTV.setOnClickListener {
             findNavController().navigate(AboutUsFragmentDirections.actionAboutUsFragmentToContactUsFragment())
         }
+        privacyPolicyTV.setOnClickListener {
+            findNavController().navigate(AboutUsFragmentDirections.actionAboutUsFragmentToPrivacyPolicyFragment())
+        }
+        userRightsTV.setOnClickListener {
+            findNavController().navigate(AboutUsFragmentDirections.actionAboutUsFragmentToPrivacyPolicyFragment())
+        }
     }
 
 
